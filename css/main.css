@@ -1,0 +1,121 @@
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+  }
+  .corps {
+
+    border-bottom: 1px solid black;
+  }
+
+nav {
+    height: 100%;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 35px;
+    min-height: 800px;
+    display:block;
+    float:left;
+    background-color: #ecf0f1;
+    padding-top: 5px;
+
+  }
+nav a {
+    color: black;
+
+  }
+
+  nav h2 {
+    margin-top:  5px !important;
+    margin-bottom: 30px !important;
+  }
+aside {
+
+    width: 250px;
+    padding-left: 10px;
+    padding-top: 10px;   
+    display:block;
+    float:left;
+    height:100%;
+
+  }
+aside h3 {
+
+    font-size: 15px;
+  }
+
+
+aside p {
+
+    margin-top: -5px !important;
+  }
+
+aside a {
+
+    width: 250px;
+    color: black !important;
+    min-height: 50px;
+     border-bottom: none !important;
+  }
+
+aside a:hover {
+
+   width: 250px;
+    color: black!important;
+    min-height: 50px;
+  text-decoration: none !important;
+    border-bottom: none !important;
+
+  }
+
+  .next {
+  text-align: right;
+  float: right;
+
+  }
+
+  .right {
+
+    float:right;
+  }
+
+  .right a {
+  margin-left: 10px;
+
+  }
+
+  .form-control{
+height: 25px !important;
+margin-top:  15px !important;
+  }
+
+  .selected {
+
+    color: #3498db !important;
+  }
+
+.titre {
+font-size: 25px;
+
+}
+.photo {
+  display: block;
+  float: left;
+  padding-left: 20px;
+  margin-right: 20px;
+}
+
+.description {
+padding-top: 20px;
+padding-left: 220px;
+
+}
+.profil {
+  padding-top: 10px;
+}
+.corpus {
+width: 100%;  
+}
