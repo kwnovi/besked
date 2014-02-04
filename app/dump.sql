@@ -30,7 +30,7 @@ USE `besked`;
 
 DROP TABLE IF EXISTS `DISCUSSION`;
 CREATE TABLE IF NOT EXISTS `DISCUSSION` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `created_datetime` date NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   CONSTRAINT PK_DISCUSSION PRIMARY KEY (`id`)
@@ -44,14 +44,12 @@ CREATE TABLE IF NOT EXISTS `DISCUSSION` (
 
 DROP TABLE IF EXISTS `MESSAGE`;
 CREATE TABLE IF NOT EXISTS `MESSAGE` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `content` text COLLATE utf8_unicode_ci,
   `created_datetime` date NOT NULL,
-  `discussion_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  CONSTRAINT PK_MESSAGE PRIMARY KEY (`id`),
-  CONSTRAINT FK_MESSAGE_DISCUSSION FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`),
-  CONSTRAINT FK_MESSAGE_USER FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`)
+  `discussion_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  CONSTRAINT PK_MESSAGE PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -62,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `MESSAGE` (
 
 DROP TABLE IF EXISTS `USER`;
 CREATE TABLE IF NOT EXISTS `USER` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `created_datetime` date NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nickname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -78,11 +76,9 @@ CREATE TABLE IF NOT EXISTS `USER` (
 
 DROP TABLE IF EXISTS `USER_DISCUSSION`;
 CREATE TABLE IF NOT EXISTS `USER_DISCUSSION` (
-  `user_id` bigint(20) NOT NULL,
-  `discussion_id` bigint(20) NOT NULL,
-  CONSTRAINT PK_USER_DISCUSSION PRIMARY KEY (`user_id`,`discussion_id`),
-  CONSTRAINT FK_USER_DISCUSSION_U FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`),
-  CONSTRAINT FK_USER_DISCUSSION_D FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`)
+  `user_id` bigint(20) unsigned NOT NULL,
+  `discussion_id` bigint(20) unsigned NOT NULL,
+  CONSTRAINT PK_USER_DISCUSSION PRIMARY KEY (`user_id`,`discussion_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -93,12 +89,9 @@ CREATE TABLE IF NOT EXISTS `USER_DISCUSSION` (
 
 DROP TABLE IF EXISTS `USER_MESSAGE`;
 CREATE TABLE IF NOT EXISTS `USER_MESSAGE` (
-  `user_id` bigint(20) NOT NULL,
-  `message_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`user_id`,`message_id`),
-  CONSTRAINT PK_USER_MESSAGE PRIMARY KEY (`user_id`,`message_id`),
-  CONSTRAINT FK_USER_MESSAGE_U FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`),
-  CONSTRAINT FK_USER_MESSAGE_M FOREIGN KEY (`message_id`) REFERENCES `MESSAGE`(`id`)
+  `user_id` bigint(20) unsigned NOT NULL,
+  `message_id` bigint(20) unsigned NOT NULL,
+  CONSTRAINT PK_USER_MESSAGE PRIMARY KEY (`user_id`,`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -109,15 +102,61 @@ CREATE TABLE IF NOT EXISTS `USER_MESSAGE` (
 
 DROP TABLE IF EXISTS `DISCUSSION_MESSAGE`;
 CREATE TABLE IF NOT EXISTS `DISCUSSION_MESSAGE` (
-  `discussion_id` bigint(20) NOT NULL,
-  `message_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`discussion_id`,`message_id`),
-  CONSTRAINT PK_DISCUSSION_MESSAGE PRIMARY KEY (`discussion_id`,`message_id`),
-  CONSTRAINT FK_DISCUSSION_MESSAGE_D FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`),
-  CONSTRAINT FK_DISCUSSION_MESSAGE_M FOREIGN KEY (`message_id`) REFERENCES `MESSAGE`(`id`)
+  `discussion_id` bigint(20) unsigned NOT NULL,
+  `message_id` bigint(20) unsigned NOT NULL,
+  CONSTRAINT PK_DISCUSSION_MESSAGE PRIMARY KEY (`discussion_id`,`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
+
+--
+-- Contraintes de la table `MESSAGE`
+--
+
+alter table MESSAGE 
+  add CONSTRAINT FK_MESSAGE_USER FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`);
+
+alter table MESSAGE
+  add CONSTRAINT FK_MESSAGE_DISCUSSION FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`);
+
+-- --------------------------------------------------------
+
+--
+-- Contraintes de la table `USER_DISCUSSION`
+--
+
+alter table USER_DISCUSSION 
+    add CONSTRAINT FK_USER_DISCUSSION_U FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`);
+
+alter table USER_DISCUSSION 
+    add CONSTRAINT FK_USER_DISCUSSION_D FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`);
+
+-- --------------------------------------------------------
+
+--
+-- Contraintes de la table `USER_MESSAGE`
+--
+
+alter table USER_MESSAGE 
+    add   CONSTRAINT FK_USER_MESSAGE_U FOREIGN KEY (`user_id`) REFERENCES `USER`(`id`);
+
+alter table USER_MESSAGE 
+  add   CONSTRAINT FK_USER_MESSAGE_M FOREIGN KEY (`message_id`) REFERENCES `MESSAGE`(`id`);
+
+-- --------------------------------------------------------
+
+--
+-- Contraintes de la table `DISCUSSION_MESSAGE`
+--
+
+alter table DISCUSSION_MESSAGE 
+    add CONSTRAINT FK_DISCUSSION_MESSAGE_D FOREIGN KEY (`discussion_id`) REFERENCES `DISCUSSION`(`id`);
+
+alter table DISCUSSION_MESSAGE 
+  add  CONSTRAINT FK_DISCUSSION_MESSAGE_M FOREIGN KEY (`message_id`) REFERENCES `MESSAGE`(`id`);
+
+-- --------------------------------------------------------
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
