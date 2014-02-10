@@ -1,22 +1,23 @@
   html {
     height: 100%;
+    margin-bottom: none !important;
   }
 
   body {
-    min-height: 100%;
+    height: 100%;
+        margin-bottom: none !important;
   }
   .corps {
 
     border-bottom: 1px solid black;
   }
 
-nav {
+ nav  {
     height: 100%;
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
     width: 35px;
-    min-height: 800px;
     display:block;
     float:left;
     background-color: #ecf0f1;
@@ -32,14 +33,16 @@ nav a {
     margin-top:  5px !important;
     margin-bottom: 30px !important;
   }
-aside {
+
+#A2 {
 
     width: 250px;
     padding-left: 10px;
     padding-top: 10px;   
     display:block;
     float:left;
-    height:100%;
+    max-height:100%;
+
 
   }
 aside h3 {
@@ -104,7 +107,7 @@ font-size: 25px;
 .photo {
   display: block;
   float: left;
-  padding-left: 20px;
+  padding-left: 30px;
   margin-right: 20px;
 }
 
@@ -115,7 +118,72 @@ padding-left: 220px;
 }
 .profil {
   padding-top: 10px;
+  margin-bottom: 70px;
+  height: 90px;
 }
 .corpus {
-width: 100%;  
+margin-left: 10px; 
+display: block;
+overflow: hidden;
+overflow-y: auto;
+}
+
+.connected {
+color:#2ecc71;
+}
+
+.content-area {
+
+  overflow: hidden;
+  overflow-y: auto;
+
+}
+
+.menu {
+margin-bottom: 0px;
+display:block;
+height: 160px;
+}
+
+.conversation {
+  padding-left: 20px;
+  display:block;
+  margin-right: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.interlocuteur {
+margin-bottom: 30px;
+padding-right: 60px;
+text-align: justify;
+
+
+}
+
+.intervenant {
+  text-align: justify;
+  padding-left: 60px;
+float:right;
+margin-bottom: 30px;
+
+}
+
+.topic {
+  height :60px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+
+#chat{
+height :40px !important;
+
+}
+#chatbar {
+  padding-right: 20px;
+  padding-left: 20px;
+height : 60px;
+display: block; 
+
 }
