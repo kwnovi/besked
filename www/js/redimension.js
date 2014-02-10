@@ -6,10 +6,19 @@
 
 			   	var secondHeight = window.innerHeight - $("#prof").outerHeight(true) - $('#chatbar').outerHeight(true);
 			   	$("#conver").css("height", secondHeight + 'px');
-
 			   
 			});
 
 
+			function showContact() {
+				$("#contact-list").show();
+				$("#msg-list").hide();
+
+			}
+
+			function showMsg() {
+				$("#msg-list").show();
+				$("#contact-list").hide();
+			}
 
 
