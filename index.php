@@ -1,6 +1,5 @@
 <?php
 require(dirname(__FILE__)."/app/models/user.php");
 
-$user = new User();
-var_dump($user->find(1));
-?>
+$user = User::__construct_by_id(1);
+var_dump($user);

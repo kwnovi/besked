@@ -3,9 +3,10 @@ require(dirname(__FILE__)."/model.php");
 
 class User extends Model{
 	const table_name = "USER";
+	const fields_names = "id,email,password,nickname,created_datetime";
 
-	public function __construct(){
-		//parent::__construct();
+/*	
+	 public function __construct(){
 		$this->fields = array(
 			'id' => array(
 				'value' => null,
@@ -29,17 +30,16 @@ class User extends Model{
 			),
 		);
 	}
-
+	*/
+	
 	public static function __construct_by_id($id){
 		$instance = new self();
-		
-		return $instance;
+		return $instance->find($id);
 	}
 
-	public function __construct_fill_fields($fields_values){
+	public static function __construct_fill_fields($fields_values){
 		parent::__construct_fill_fields($fields_values);
 	}
 
-	public function get_fields(){ return array_keys($this->fields);}
+	
 }
-?>

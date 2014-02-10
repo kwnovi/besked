@@ -1,5 +1,5 @@
 <?php
-
+//singleton
 class Database{
 	private static $link = null ;
 

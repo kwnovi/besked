@@ -1,24 +1,20 @@
 <?php
 require(dirname(__FILE__)."/../database.php");
 
-class Model{
+abstract class Model{
 
 	protected $fields;
 
 	protected static function __construct_fill_fields($fields_values){
-		$instance = new self();
-		$instance->fields = array();
-		foreach ($fields_values as $key => $value) {
-			$instance->fields[$key] = array(
-				'value' => $value,
-				'updated' =>false
-			);
-		}
+		$instance = new static();
+		$instance->fill_fields($fields_values);
 		return $instance;
 	}
-
+	
+	// on retourne un nouvel objet ou on le charge dans l'instance courante ?
 	public function find($id){
-		$fields = implode(',', $this->get_fields());
+		//$fields = implode(',', $this->get_fields_names());
+		$fields = $this::fields_names;
 		$table = $this::table_name;
 
 		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1;", array(
@@ -28,7 +24,8 @@ class Model{
 						)
 					)
 				);
-		return $this->execute($stmt);
+		//$this->fill_fields($this->execute($stmt)[0]);
+		return static::__construct_fill_fields($this->execute($stmt)[0]);
 	}
 
 	public function save(){
@@ -51,7 +48,7 @@ class Model{
 			if (!$stmt) {
 				throw new Exception("Not found", 1);
 			}
-			return $stmt->fetchAll();
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		} catch (Exception $e) {
 			die($e->getMessage());
 		}
@@ -76,6 +73,24 @@ class Model{
 		$this->fields[$attr]['value'] = $value;
 		$this->fields[$attr]['updated'] = true;
 	}
+	
+	public function get_fields_names(){ return array_keys($this->fields);}
+	
+	public function get_fields(){
+		$fields = array();
+		foreach ($fields as $key => $val) {
+			$fields[$key] = $val['value'];
+		}
+		return $fields;
+	}
+	
+	public function fill_fields($fields) {
+		$this->fields = array();
+		foreach ($fields as $key => $value) {
+			$this->fields[$key] = array(
+				'value' => $value,
+				'updated' =>false
+			);
+		}
+	}
 }
-
-?>
