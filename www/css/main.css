@@ -108,7 +108,7 @@ font-size: 25px;
   display: block;
   float: left;
   padding-left: 30px;
-  margin-right: 20px;
+  margin-right: 0px;
 }
 
 .description {
@@ -217,6 +217,6 @@ display: block;
 }
 
   .size-ic {
-    font-size: 10px;
+    font-size: 12px;
     margin-right: 20px;
   }
