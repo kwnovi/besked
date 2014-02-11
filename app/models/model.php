@@ -5,6 +5,8 @@ abstract class Model{
 
 	protected $fields;
 
+	protected $new_instance = false;
+
 	protected static function __construct_fill_fields($fields_values){
 		$instance = new static();
 		$instance->fill_fields($fields_values);
@@ -17,35 +19,90 @@ abstract class Model{
 		$fields = $this::fields_names;
 		$table = $this::table_name;
 
-		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1;", array(
-					'id' => array(
-						'val' => $id,
-						'type' => PDO::PARAM_INT
-						)
-					)
-				);
-		//$this->fill_fields($this->execute($stmt)[0]);
+		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1", array('id' => $id));
+
+		/* Pour passer le test unitaire
+		$data = $this->execute($stmt);
+		foreach ($data as $key => $value) {
+			return static::__construct_fill_fields($value);
+		}
+		*/
 		return static::__construct_fill_fields($this->execute($stmt)[0]);
 	}
 
 	public function save(){
+		// si c'est une nouvelle instance (pas deja presente en base)
+		// on l'ajoute au lieu de sauvegarder
+		if($this->new_instance) return $this->add();
 
+		$table = $this::table_name;
+		$query_string = "UPDATE $table SET ";
+		$params = array();
+		foreach ( $this->fields as $key => $value) {
+			//moche
+			if($key != 'id'){
+				$params[$key] = $value['value'];
+				$query_string .= sprintf('`%s` = %s,', $key, ':'.$key);
+			}
+			else{
+				$params[$key] = (int) $value['value'];
+			}
+		}
+		
+		$query_string = rtrim($query_string,',');
+
+		$stmt = $this->query($query_string.' WHERE id = :id', $params);
+
+		$this->execute($stmt);
 	}
 
-	private function query($query_string, $params){
+	private function add(){
+		$table = $this::table_name;
+		$fields_names = $this::fields_names;
+
+		$query_string = "INSERT INTO $table ($fields_names) VALUES (NULL,";
+		$params = array();
+
+		foreach ( $this->fields as $key => $value) {
+			if($key != 'id'){
+				if(!$value['value']) die("sauvegarde avec un champ vide");
+				$query_string .= '?,';
+				array_push($params, $value['value']);
+			}
+		}
+		
+		$query_string = rtrim($query_string,',');
+
+		$stmt = $this->query($query_string.')');
+
+		$this->execute($stmt, $params);
+		
+	}
+
+	private function query($query_string, $params=NULL){
 		$db = Database::getConnection();
 		$stmt = $db->prepare($query_string);
+
+		// si c'est une requete avec des '?'
+		if($params == NULL) return $stmt;
+		
 		foreach ($params as $key => $val) {
-			$stmt->bindParam(":$key", $val['val'], $val['type']);
+			$stmt->bindValue(":$key", $val);
+			if(!$stmt) print_r($stmt->errorInfo(), TRUE);
 		}
 		return $stmt;
 	}
 
-	private function execute($stmt){
+	private function execute($stmt, $params=NULL){
 		try {
-			$stmt->execute();
+			if($params == NULL){
+				$stmt->execute() or die(print_r($stmt->errorInfo(), TRUE));
+			} else {
+				$stmt->execute($params) or die(print_r($stmt->errorInfo(), TRUE));
+			} 
 			// $stmt == false si problème dans la query ou pas de lignes renvoyees
 			if (!$stmt) {
+				print_r($stmt->errorInfo(), TRUE);
 				throw new Exception("Not found", 1);
 			}
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -53,6 +110,7 @@ abstract class Model{
 			die($e->getMessage());
 		}
 	}
+
 
 	// NON TESTE
 	private function get_updated_fields(){
@@ -92,5 +150,9 @@ abstract class Model{
 				'updated' =>false
 			);
 		}
+	}
+
+	public function get_id(){
+		return (int) $this->fields['id']['value'];
 	}
 }

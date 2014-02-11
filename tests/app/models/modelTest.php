@@ -6,10 +6,13 @@ require_once(dirname(__FILE__)."\..\..\..\app\models\user.php");
 class ModelMock extends Model{
 	const table_name = "";
 	const fields_names = "id,email,password,nickname,created_datetime";
-	
+	/*
 	public static function __construct_fill_fields($fields_values){
-		parent::__construct_fill_fields($fields_values);
-	}
+        echo 'toto';
+		$instance = new self();
+        $instance->fill_fields($fields_values);
+        return $instance;
+	}*/
 }
 
 /**
@@ -43,31 +46,29 @@ class ModelTest extends PHPUnit_Framework_TestCase {
      * @todo   Implement testFind().
      */
     public function testFind() {
-	$attr =  array(
-  	    'id' => 1,
-  	    'email' => 'a@a.fr',
-  	    'password' => 'azraaefaefa',
-  	    'nickname' => 'toto',
-  	    'created' => '2014-01-02'
-  	);
+    	$attr =  array(
+      	    'id' => 1,
+      	    'email' => 'a@a.fr',
+      	    'password' => 'azraaefaefa',
+      	    'nickname' => 'toto',
+      	    'created' => '2014-01-02'
+      	);
         
         //$this->object = new ModelMock();
 
-        $stub = $this->getMockBuilder('Model')
-                     ->disableOriginalConstructor()
-                     ->getMock();
+        $stub = $this->getMockBuilder('Model', array('execute'))
+                 ->getMock();
 
         // Configure the stub.
-        $stub->expects($this->any())
-             ->method('execute')
-             ->will($this->returnValue(array(0 => $attr)));
-        
-	$result = (new ModelMock())->find(1);
-	
-	echo "prout";
-	echo var_dump($result);
-	
-         $this->assertEquals($result->get_fields_values(), $attr);
+        $stub->expects($this->once())
+         ->method('execute')
+         ->will($this->returnValue(array(0 => $attr)));
+
+	   $result = (new ModelMock())->find(1);
+	   
+       var_dump($result);
+
+       $this->assertEquals($result->get_fields(), $attr);
         
     }
 

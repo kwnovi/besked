@@ -2,12 +2,14 @@
 require(dirname(__FILE__)."/model.php");
 
 class User extends Model{
-	const table_name = "USER";
+	const table_name = "user";
 	const fields_names = "id,email,password,nickname,created_datetime";
 
-/*	
-	 public function __construct(){
-		$this->fields = array(
+	
+	 public static function create_user(){
+		$instance = new self();
+		$instance->new_instance = true;
+		$instance->fields = array(
 			'id' => array(
 				'value' => null,
 				'updated' => false
@@ -29,17 +31,21 @@ class User extends Model{
 				'updated' => false
 			),
 		);
+		return $instance;
 	}
-	*/
 	
-	public static function __construct_by_id($id){
+	
+	public static function get_by_id($id){
 		$instance = new self();
 		return $instance->find($id);
 	}
 
+/*
 	public static function __construct_fill_fields($fields_values){
-		parent::__construct_fill_fields($fields_values);
+		$instance = new self();
+		$instance->fill_fields($fields_values);
+		return $instance;
 	}
-
+*/
 	
 }
