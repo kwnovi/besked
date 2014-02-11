@@ -1,5 +1,5 @@
 <?php
-require(dirname(__FILE__)."/../database.php");
+require("database.php");
 
 abstract class Model{
 

@@ -1,5 +1,7 @@
 <?php
-require(dirname(__FILE__)."/model.php");
+namespace User\Model;
+
+require(dirname(__FILE__)."/../model.php");
 
 class User extends Model{
 	const table_name = "user";
