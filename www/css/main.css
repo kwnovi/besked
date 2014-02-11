@@ -1,6 +1,5 @@
   html {
     height: 100%;
-    margin-bottom: none !important;
   }
 
   body {
@@ -33,6 +32,7 @@ nav a {
     margin-top:  5px !important;
     margin-bottom: 30px !important;
   }
+
 
 #A2 {
 
@@ -108,7 +108,7 @@ font-size: 25px;
   display: block;
   float: left;
   padding-left: 30px;
-  margin-right: 20px;
+  margin-right: 0px;
 }
 
 .description {
@@ -129,7 +129,7 @@ overflow-y: auto;
 }
 
 .connected {
-color:#2ecc71;
+color:#3498db;
 }
 
 .content-area {
@@ -155,18 +155,27 @@ height: 160px;
 
 .interlocuteur {
 margin-bottom: 30px;
-padding-right: 60px;
+
 text-align: justify;
 
-
+}
+.interlocuteur .msg {
+  padding-right: 60px;
 }
 
+.intervenant .msg {
+    padding-left: 60px;
+}
 .intervenant {
   text-align: justify;
-  padding-left: 60px;
+
 float:right;
 margin-bottom: 30px;
 
+}
+
+#contact-list{
+  display:none;
 }
 
 .topic {
@@ -187,3 +196,27 @@ height : 60px;
 display: block; 
 
 }
+.datetime{
+  text-align: right;
+  color:grey;
+  display: block;
+
+}
+
+#contact-list ul {
+  list-style: none;
+  text-align : none;
+}
+
+#contact-list li {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  margin-left: -40px;
+
+  border-bottom: 1px solid #ecf0f1;
+}
+
+  .size-ic {
+    font-size: 12px;
+    margin-right: 20px;
+  }
