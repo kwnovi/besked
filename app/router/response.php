@@ -1,8 +1,5 @@
 <?php
 
-namespace Router\Response;
-
-
 function redirect($url)
 {
     header('Location: '.$url);

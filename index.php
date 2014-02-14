@@ -1,31 +1,15 @@
 <?php
-use Router\Router_Utilities;
-use User\Route;
 
+require_once (dirname(__FILE__).'\app\router.php');
+	
+Router::get_instance()->get_route(array(
+	"#^/$#" => "home_view",
+	"#^/besked$#" => "home_view", // dev
+	"#users/[a-zA-Z0-9/?=]#" => "user_routes_handler",
+	"#messages/[a-zA-Z0-9/?=]#" => "messages_routes_handler",
+	"#discussions/[a-zA-Z0-9/?=]#" => "discussions_route_handler",
+	), $_SERVER['REQUEST_URI']);
 
-var_dump($_REQUEST);
-
-$url = $_SERVER['REQUEST_URI'];
-$request = Router_Utilities\get_request();
-
-$routes = array(
-	"#^users/[a-zA-Z0-9/?=]#" => "User\Route",
-	"#^messages/[a-zA-Z0-9/?=]#" => "Messages\Route",
-	"#^discussions/[a-zA-Z0-9/?=]#" => "Discussions\Route",
-	);
-
-foreach ($routes as $pattern => $router) {
-	if(preg_match($pattern, $url)){
-		call_user_func($router.'\handle', $request);
-		exit;
-	}
-}
-
-
-/*
-$mapping = array(
-	'/login' => )
-*/
 
 /* TEST ADD
 $user = User::create_user();
