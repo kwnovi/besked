@@ -1,12 +1,12 @@
 <?php
-require_once(dirname(__FILE__)."/../model.php");
+require_once(__APP_DIR__.'model.php');
 
 class User extends Model{
 	const table_name = "user";
 	const fields_names = "id,email,password,nickname,created_datetime";
 
 	
-	 public static function create_user(){
+	public static function create_user(){
 		$instance = new self();
 		$instance->new_instance = true;
 		$instance->fields = array(

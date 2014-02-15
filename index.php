@@ -1,14 +1,17 @@
 <?php
 
-require_once (dirname(__FILE__).'\app\router.php');
-	
+define("_SL_", '\\');
+define("__APP_DIR__", dirname(__FILE__)._SL_.'app'._SL_);
+define("__TEMPLATE_DIR__", __APP_DIR__.'templates'._SL_);
+require_once (__APP_DIR__.'router.php');
+
 Router::get_instance()->get_route(array(
 	"#^/$#" => "home_view",
-	"#^/besked$#" => "home_view", // dev
+	"#^/besked/$#" => "home_view", // dev
 	"#users/[a-zA-Z0-9/?=]#" => "user_routes_handler",
 	"#messages/[a-zA-Z0-9/?=]#" => "messages_routes_handler",
 	"#discussions/[a-zA-Z0-9/?=]#" => "discussions_route_handler",
-	), $_SERVER['REQUEST_URI']);
+	));
 
 
 /* TEST ADD
