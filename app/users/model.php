@@ -54,6 +54,16 @@ class User extends Model{
 		return $instance->find($id);
 	}
 
+	public static function get_from_request($request){
+		$stmt = self::query("SELECT ".self::fields_names." FROM ".self::table_name." WHERE email = :email AND password = :password", 
+							array(
+								"email" => $request['email'],
+								"password" => $request['password']
+								));
+		$results = self::execute($stmt);
+		return (empty($results))?false:$results[0];
+	}
+
 	public static function check_nickname($nick){
 		$stmt = self::query("SELECT id FROM ".self::table_name." WHERE nickname = :n", array('n'=>$nick));
 		$results = self::execute($stmt);

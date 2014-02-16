@@ -7,10 +7,21 @@ require_once(__APP_DIR__.'users'._SL_.'model.php');
 
 function login(){
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		$view = new View(__TEMPLATES_DIR__.'login.php', array('test' => 'toto'));
+		$_POST['password'] = crypt($_POST['password'], 'toto');
+		$user = User::get_from_request($_POST);
+		if(!$user){
+			$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+				'signup_data' => false,
+				'login_data' => 'Cette adresse et ce mot de passe ne correspondent pas. Veuillez recommencer.'
+			));
+		} else {
+			session_start();
+			$view = new View(__TEMPLATES_DIR__.'home.php', array('user' => $user));
+		}
 		$view->render();
+	} else {
+		header('Location: '.__ROOT_DIR__, true, 301);
 	}
-	header('Location: '.__ROOT_DIR__, true, 301);
 }
 
 function signup(){
@@ -18,7 +29,10 @@ function signup(){
 		$validator = new Validator();
 		$result = $validator->validate(User::validation_fields(), $_POST);
 		if($result['has_errors']){
-			$view = new View(__TEMPLATES_DIR__.'landing.php', array('data' => $result));
+			$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+				'login_data' => false,
+				'signup_data' => $result)
+			);
 		} else {
 			if(User::check_nickname($_POST['nickname'])){
 				$_POST['password'] = crypt($_POST['password'], 'toto');
@@ -32,7 +46,10 @@ function signup(){
 					"error" => true,
 					"message" => "Pseudonyme déjà pris."
 				);
-				$view = new View(__TEMPLATES_DIR__.'landing.php', array('data' => $result));
+				$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+					'login_data' => false,
+					'signup_data' => $result
+				));
 			}
 		}
 		$view->render();
