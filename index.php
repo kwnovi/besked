@@ -1,8 +1,14 @@
 <?php
 
+//includes
 define("_SL_", '\\');
 define("__APP_DIR__", dirname(__FILE__)._SL_.'app'._SL_);
-define("__TEMPLATE_DIR__", __APP_DIR__.'templates'._SL_);
+define("__TEMPLATES_DIR__", __APP_DIR__.'templates'._SL_);
+
+// urls
+define("__ROOT__", '/besked/');
+define("__WWW_DIR__", __ROOT__.'www/');
+
 require_once (__APP_DIR__.'router.php');
 
 Router::get_instance()->get_route(array(

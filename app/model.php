@@ -34,7 +34,6 @@ abstract class Model{
 		// si c'est une nouvelle instance (pas deja presente en base)
 		// on l'ajoute au lieu de sauvegarder
 		if($this->new_instance) return $this->add();
-
 		$table = $this::table_name;
 		$query_string = "UPDATE $table SET ";
 		$params = array();
@@ -48,41 +47,32 @@ abstract class Model{
 				$params[$key] = (int) $value['value'];
 			}
 		}
-		
 		$query_string = rtrim($query_string,',');
-
-		$stmt = $this->query($query_string.' WHERE id = :id', $params);
-
-		$this->execute($stmt);
+		$stmt = $this::query($query_string.' WHERE id = :id', $params);
+		$this::execute($stmt);
 	}
 
 	private function add(){
 		$table = $this::table_name;
 		$fields_names = $this::fields_names;
-
-		$query_string = "INSERT INTO $table ($fields_names) VALUES (NULL,";
+		$query_string = "INSERT INTO $table ($fields_names) VALUES (";
 		$params = array();
-
 		foreach ( $this->fields as $key => $value) {
-			if($key != 'id'){
-				if(!$value['value']) die("sauvegarde avec un champ vide");
+			if($key != 'id' && $value['value'] != NULL){
 				$query_string .= '?,';
 				array_push($params, $value['value']);
+			} else {
+				$query_string .= 'NULL,';
 			}
 		}
-		
 		$query_string = rtrim($query_string,',');
-
-		$stmt = $this->query($query_string.')');
-
-		$this->execute($stmt, $params);
-		
+		$stmt = $this::query($query_string.')');
+		$this::execute($stmt, $params);
 	}
 
-	private function query($query_string, $params=NULL){
+	protected static function query($query_string, $params=NULL){
 		$db = Database::getConnection();
 		$stmt = $db->prepare($query_string);
-
 		// si c'est une requete avec des '?'
 		if($params == NULL) return $stmt;
 		
@@ -93,7 +83,7 @@ abstract class Model{
 		return $stmt;
 	}
 
-	private function execute($stmt, $params=NULL){
+	protected static function execute($stmt, $params=NULL){
 		try {
 			if($params == NULL){
 				$stmt->execute() or die(print_r($stmt->errorInfo(), TRUE));
@@ -111,8 +101,6 @@ abstract class Model{
 		}
 	}
 
-
-	// NON TESTE
 	private function get_updated_fields(){
 		$updated_fields = array();
 		foreach ($this->fields as $key => $value) {

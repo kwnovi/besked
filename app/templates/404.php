@@ -1,2 +1,1 @@
-<?php
-echo '<h1>test $a</h1>';
+<h1>Not Found</h1>

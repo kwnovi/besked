@@ -29,7 +29,7 @@ class Router{
 
 	private static function not_found(){
 		header("HTTP/1.0 404 Not Found", false, 404);
-		$view = new View(__TEMPLATE_DIR__.'404.php');
+		$view = new View(__TEMPLATES_DIR__.'404.php');
 		$view->render();
 		 exit;
 	}

@@ -5,8 +5,15 @@ class User extends Model{
 	const table_name = "user";
 	const fields_names = "id,email,password,nickname,created_datetime";
 
+	public static function validation_fields(){
+		return array(
+			"email" => "email",
+			"password" => "password",
+			"nickname" => "mandatory"
+			);
+	}
 	
-	public static function create_user(){
+	public static function create(){
 		$instance = new self();
 		$instance->new_instance = true;
 		$instance->fields = array(
@@ -34,10 +41,23 @@ class User extends Model{
 		return $instance;
 	}
 	
+	public static function create_from_request($request){
+		$instance = self::create();
+		foreach ($request as $key => $value) {
+			$instance->fields[$key]['value'] = $value;
+		}
+		return $instance;
+	}
 	
 	public static function get_by_id($id){
 		$instance = new self();
 		return $instance->find($id);
+	}
+
+	public static function check_nickname($nick){
+		$stmt = self::query("SELECT id FROM ".self::table_name." WHERE nickname = :n", array('n'=>$nick));
+		$results = self::execute($stmt);
+		return empty($results);
 	}
 
 /*

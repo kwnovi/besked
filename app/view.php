@@ -8,8 +8,8 @@ class View{
 	protected $data;
 
 	public function __construct($template = null, $data = null){
-		$this->header = __TEMPLATE_DIR__.'header.php';
-		$this->footer = __TEMPLATE_DIR__.'footer.php';	
+		$this->header = __TEMPLATES_DIR__.'header.php';
+		$this->footer = __TEMPLATES_DIR__.'footer.php';	
 		$this->template = $template;
 		$this->data = $data;
 	}
