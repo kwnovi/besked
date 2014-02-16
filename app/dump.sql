@@ -39,6 +39,21 @@ CREATE TABLE IF NOT EXISTS `DISCUSSION` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `CONTACT`
+--
+DROP TABLE IF EXISTS `CONTACT`;
+CREATE TABLE IF NOT EXISTS `CONTACT` (
+  `user_id_1` bigint(20) unsigned NOT NULL,
+  `user_id_2` bigint(20) unsigned NOT NULL,
+  
+  CONSTRAINT PK_CONTACT PRIMARY KEY (`user_id_1`, 'user_id_2') 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+
+--
 -- Structure de la table `MESSAGE`
 --
 
@@ -155,7 +170,21 @@ alter table DISCUSSION_MESSAGE
 alter table DISCUSSION_MESSAGE 
   add  CONSTRAINT FK_DISCUSSION_MESSAGE_M FOREIGN KEY (`message_id`) REFERENCES `MESSAGE`(`id`);
 
+
 -- --------------------------------------------------------
+
+--
+-- Contraintes de la table `CONTACT`
+--
+
+alter table CONTACT 
+    add CONSTRAINT FK_CONTACT_1 FOREIGN KEY (`user_id_1`) REFERENCES `USER`(`id`);
+
+alter table CONTACT
+  add  CONSTRAINT FK_CONTACT_2 FOREIGN KEY (`user_id_2`) REFERENCES `USER`(`id`);
+
+-- --------------------------------------------------------
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
