@@ -1,5 +1,4 @@
 <?php
-
 //includes
 define("_SL_", '\\');
 define("__APP_DIR__", dirname(__FILE__)._SL_.'app'._SL_);
