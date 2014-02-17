@@ -113,7 +113,7 @@ font-size: 25px;
 
 .description {
 padding-top: 20px;
-padding-left: 220px;
+padding-left: 200px;
 
 }
 .profil {
@@ -220,3 +220,24 @@ display: block;
     font-size: 12px;
     margin-right: 20px;
   }
+
+  .nouveau_contact {
+  width: 600px !important;
+  height: 40px !important;
+  float:left;
+
+
+  }
+
+#chargement {
+padding-top: 200px;
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.msg_chargement {
+
+  padding-top: 15px;
+  font-weight: normal;
+}
