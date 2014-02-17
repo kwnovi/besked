@@ -1,0 +1,260 @@
+  html {
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+        margin-bottom: none !important;
+  }
+  .corps {
+  
+    border-bottom: 1px solid black;
+  }
+
+ nav  {
+    height: 100%;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 35px;
+    display:block;
+    float:left;
+    background-color: #ecf0f1;
+    padding-top: 5px;
+
+  }
+nav a {
+    color: black;
+
+  }
+
+  nav h2 {
+    margin-top:  5px !important;
+    margin-bottom: 30px !important;
+  }
+
+
+#A2 {
+
+    width: 250px;
+    padding-left: 10px;
+    padding-top: 10px;   
+    display:block;
+    float:left;
+    max-height:100%;
+
+
+  }
+aside h3 {
+
+    font-size: 15px;
+  }
+
+
+aside p {
+
+    margin-top: -5px !important;
+  }
+
+aside a {
+
+    width: 250px;
+    color: black !important;
+    min-height: 50px;
+     border-bottom: none !important;
+  }
+
+aside a:hover {
+
+   width: 250px;
+    color: black!important;
+    min-height: 50px;
+  text-decoration: none !important;
+    border-bottom: none !important;
+
+  }
+
+  .next {
+  text-align: right;
+  float: right;
+
+  }
+
+  .right {
+
+    float:right;
+  }
+
+  .right a {
+  margin-left: 10px;
+
+  }
+
+  .form-control{
+height: 25px !important;
+margin-top:  15px !important;
+  }
+
+  .selected {
+
+    color: #3498db !important;
+  }
+
+.titre {
+font-size: 25px;
+
+}
+.photo {
+  display: block;
+  float: left;
+  padding-left: 30px;
+  margin-right: 0px;
+}
+
+.description {
+padding-top: 20px;
+padding-left: 200px;
+
+}
+.profil {
+  padding-top: 10px;
+  margin-bottom: 70px;
+  height: 90px;
+}
+.corpus {
+margin-left: 30px; 
+display: block;
+overflow: hidden;
+overflow-y: auto;
+margin-right: 30px;
+}
+
+.connected {
+color:#3498db;
+}
+
+.content-area {
+
+  overflow: hidden;
+  overflow-y: auto;
+
+}
+
+.menu {
+margin-bottom: 0px;
+display:block;
+height: 160px;
+}
+
+.conversation {
+  padding-left: 20px;
+  display:block;
+  margin-right: 20px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.interlocuteur {
+margin-bottom: 30px;
+
+text-align: justify;
+
+}
+.interlocuteur .msg {
+  padding-right: 60px;
+}
+
+.intervenant .msg {
+    padding-left: 60px;
+}
+.intervenant {
+  text-align: justify;
+
+float:right;
+margin-bottom: 30px;
+
+}
+
+
+
+.topic {
+  height :60px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+
+#chat{
+height :40px !important;
+
+}
+#chatbar {
+  padding-right: 20px;
+  padding-left: 20px;
+height : 60px;
+display: block; 
+
+}
+.datetime{
+  text-align: right;
+  color:grey;
+  display: block;
+
+}
+
+#contact-list ul {
+  list-style: none;
+  text-align : none;
+}
+
+#contact-list li {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  margin-left: -40px;
+
+  border-bottom: 1px solid #ecf0f1;
+}
+
+  .size-ic {
+    font-size: 12px;
+    margin-right: 20px;
+  }
+
+  .nouveau_contact {
+  width: 600px !important;
+  height: 40px !important;
+  float:left;
+
+
+  }
+
+#B4 {
+
+overflow: hidden;
+overflow-y: auto;
+
+}
+
+#A4 {
+
+    width: 250px;
+    padding-left: 10px;
+    padding-top: 10px;   
+    display:block;
+    float:left;
+    max-height:100%;
+    margin-right: 40px;
+
+  }
+
+.corpus h1 {
+
+  margin-top: 50px;
+
+}
+
+.corpus p {
+
+  text-align: justify;
+}
+
