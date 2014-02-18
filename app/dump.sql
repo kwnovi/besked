@@ -38,20 +38,6 @@ CREATE TABLE IF NOT EXISTS `DISCUSSION` (
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `CONTACT`
---
-DROP TABLE IF EXISTS `CONTACT`;
-CREATE TABLE IF NOT EXISTS `CONTACT` (
-  `user_id_1` bigint(20) unsigned NOT NULL,
-  `user_id_2` bigint(20) unsigned NOT NULL,
-  
-  CONSTRAINT PK_CONTACT PRIMARY KEY (`user_id_1`, 'user_id_2') 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
-
--- --------------------------------------------------------
-
 
 --
 -- Structure de la table `MESSAGE`
@@ -80,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `USER` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `nickname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `picture_path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   CONSTRAINT PK_USER PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -121,6 +108,20 @@ CREATE TABLE IF NOT EXISTS `DISCUSSION_MESSAGE` (
   `message_id` bigint(20) unsigned NOT NULL,
   CONSTRAINT PK_DISCUSSION_MESSAGE PRIMARY KEY (`discussion_id`,`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `CONTACT`
+--
+DROP TABLE IF EXISTS `CONTACT`;
+CREATE TABLE IF NOT EXISTS `CONTACT` (
+  `user_id_1` bigint(20) unsigned NOT NULL,
+  `user_id_2` bigint(20) unsigned NOT NULL,
+  
+  CONSTRAINT PK_CONTACT PRIMARY KEY (`user_id_1`, 'user_id_2') 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 

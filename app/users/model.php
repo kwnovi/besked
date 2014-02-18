@@ -61,7 +61,7 @@ class User extends Model{
 								"password" => $request['password']
 								));
 		$results = self::execute($stmt);
-		return (empty($results))?false:$results[0];
+		return (empty($results))?false:self::__construct_fill_fields($results[0]);
 	}
 
 	public static function check_nickname($nick){
