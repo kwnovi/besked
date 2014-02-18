@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>(2) Besked</title>
+
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+
+ 
+  </head>
+
+  <body>
+
+
+<div id="chargement">
+
+  <h4><i class="fa fa-refresh fa-5x fa-spin"></i></h4>
+
+<div class="msg_chargement">
+  <h5  style="display:none;">Chargement de votre dernière dispute avec votre copine..  </h5>
+  <h5 style="display:none;">Chargement de votre dernière conversation avec votre ex-copine.. </h5>
+  <h5 style="display:none;">Suppression de vos messages compromettants .. </h5>
+  <h5  style="display:none;">Transmission de tous vos petits secrets à la NSA..</h5>
+
+  <h5  style="display:none;">Chargement de vos conversations abasourdissantes .. </h5>
+  <h5 style="display:none;">Mise en route de l'usine à émoticônes.. </h5> 
+    <h5 style="display:none;">Allez courage ça ne devrait plus être très long, tout est en place maintenant.</h5> 
+</div>
+  
+</div>
+
+
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery.js"></script>
+
+    <script>
+
+
+
+
+    $(function() {
+
+      $('h5').first().fadeIn(2000, function suivante() {
+        $(this).fadeOut(2000, function(){
+          $(this).next('h5').fadeIn(2000,suivante);
+        }
+      )});
+         
+
+    });
+
+
+
+
+    </script>
+
+       
+  
+  </body>
+</html>

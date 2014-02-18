@@ -7,7 +7,7 @@
         margin-bottom: none !important;
   }
   .corps {
-
+  
     border-bottom: 1px solid black;
   }
 
@@ -122,10 +122,11 @@ padding-left: 200px;
   height: 90px;
 }
 .corpus {
-margin-left: 10px; 
+margin-left: 30px; 
 display: block;
 overflow: hidden;
 overflow-y: auto;
+margin-right: 30px;
 }
 
 .connected {
@@ -174,9 +175,7 @@ margin-bottom: 30px;
 
 }
 
-#contact-list{
-  display:none;
-}
+
 
 .topic {
   height :60px;
@@ -229,15 +228,33 @@ display: block;
 
   }
 
-#chargement {
-padding-top: 200px;
-  width: 500px;
-  margin: auto;
-  text-align: center;
+#B4 {
+
+overflow: hidden;
+overflow-y: auto;
+
 }
 
-.msg_chargement {
+#A4 {
 
-  padding-top: 15px;
-  font-weight: normal;
+    width: 250px;
+    padding-left: 10px;
+    padding-top: 10px;   
+    display:block;
+    float:left;
+    max-height:100%;
+    margin-right: 40px;
+
+  }
+
+.corpus h1 {
+
+  margin-top: 50px;
+
 }
+
+.corpus p {
+
+  text-align: justify;
+}
+
