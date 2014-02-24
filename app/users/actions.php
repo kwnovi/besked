@@ -60,3 +60,14 @@ function signup(){
 		header('Location: '.__ROOT_DIR__, true, 301);		
 	}
 }
+
+function get_all_users (){
+	$status_code = 200;
+	//var_dump(User::find_all());
+	header('HTTP/1.0 '.$status_code);
+    header('Content-Type: application/json');
+
+    echo json_encode(User::find_all());
+
+
+}

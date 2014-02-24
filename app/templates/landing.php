@@ -13,7 +13,7 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Besked</h1>
+            <p class="lead">Besked</p>
             <p class="lead">Messaging system made shockingly simple.</p>
             <p class="lead" id="ctl-buttons" style="display: <?php echo ($signup_data || $login_data)?'none':'block';?>">
               <a href="#" id="btn-login"class="btn btn-lg btn-default">Login</a>

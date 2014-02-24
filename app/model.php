@@ -148,4 +148,13 @@ abstract class Model{
 	public function get_id(){
 		return (int) $this->fields['id']['value'];
 	}
+
+
+	public static function find_all (){
+		$stmt = self::query("SELECT ".static::fields_names." FROM ".static::table_name);
+		$results = self::execute($stmt);
+		return $results;
+
+	}
+
 }

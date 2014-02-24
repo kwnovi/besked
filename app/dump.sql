@@ -118,8 +118,8 @@ DROP TABLE IF EXISTS `CONTACT`;
 CREATE TABLE IF NOT EXISTS `CONTACT` (
   `user_id_1` bigint(20) unsigned NOT NULL,
   `user_id_2` bigint(20) unsigned NOT NULL,
-  CONSTRAINT PK_CONTACT PRIMARY KEY (`user_id_1`, 'user_id_2') 
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  CONSTRAINT PK_CONTACT PRIMARY KEY (`user_id_1`, `user_id_2`) 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci  ;
 
 
 -- --------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 //includes
-define("_SL_", '\\');
+define("_SL_", '/');
 define("__APP_DIR__", dirname(__FILE__)._SL_.'app'._SL_);
 define("__TEMPLATES_DIR__", __APP_DIR__.'templates'._SL_);
 
@@ -18,6 +18,7 @@ Router::get_instance()->get_route(array(
 	"#discussions/[a-zA-Z0-9/?=]#" => "discussions_route_handler",
 	));
 
+ 
 
 /* TEST ADD
 $user = User::create_user();
