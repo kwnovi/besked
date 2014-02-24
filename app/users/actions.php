@@ -16,6 +16,7 @@ function login(){
 			));
 		} else {
 			session_start();
+			$_SESSION['userID'] = $user->get_id();
 			$view = new View(__TEMPLATES_DIR__.'home.php', array('user' => $user));
 		}
 		$view->render();
@@ -34,12 +35,14 @@ function signup(){
 				'signup_data' => $result)
 			);
 		} else {
+			//SQL UNIQUE
 			if(User::check_nickname($_POST['nickname'])){
 				$_POST['password'] = crypt($_POST['password'], 'toto');
 				$_POST['created_datetime'] = date("Y-m-d H:i:s");
 				$user = User::create_from_request($_POST);
 				$user->save();
 				session_start();
+				$_SESSION['userID'] = $user->get_id();
 				$view = new View(__TEMPLATES_DIR__.'home.php',array('user' => $user));
 			} else {
 				$result['nickname'] = array(

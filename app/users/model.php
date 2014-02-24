@@ -48,11 +48,6 @@ class User extends Model{
 		}
 		return $instance;
 	}
-	
-	public static function get_by_id($id){
-		$instance = new self();
-		return $instance->find($id);
-	}
 
 	public static function get_from_request($request){
 		$stmt = self::query("SELECT ".self::fields_names." FROM ".self::table_name." WHERE email = :email AND password = :password", 

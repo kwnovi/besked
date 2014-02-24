@@ -101,6 +101,11 @@ abstract class Model{
 		}
 	}
 
+	public static function get_by_id($id){
+		$instance = new static();
+		return $instance->find($id);
+	}
+
 	private function get_updated_fields(){
 		$updated_fields = array();
 		foreach ($this->fields as $key => $value) {
