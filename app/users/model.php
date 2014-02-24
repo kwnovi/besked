@@ -3,7 +3,7 @@ require_once(__APP_DIR__.'model.php');
 
 class User extends Model{
 	const table_name = "user";
-	const fields_names = "id,email,password,nickname,created_datetime";
+	const fields_names = "id,email,password,nickname,created_datetime, picture_path";
 
 	public static function validation_fields(){
 		return array(
@@ -34,6 +34,10 @@ class User extends Model{
 				'updated' => false
 			),
 			'created_datetime'=> array(
+				'value' => null,
+				'updated' => false
+			),
+			'picture_path'=> array(
 				'value' => null,
 				'updated' => false
 			),
@@ -70,6 +74,17 @@ class User extends Model{
 		return empty($results);
 	}
 
+	//useless
+	public static function toto ($array){
+		$tab_utilisateur = array();
+
+		for ($i=0; $i <count($array) ; $i++) { 
+			$tab_utilisateur[$i]=self::__construct_fill_fields($array[$i]);
+		}
+
+		return $tab_utilisateur;
+
+	}
 /*
 	public static function __construct_fill_fields($fields_values){
 		$instance = new self();

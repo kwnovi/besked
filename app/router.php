@@ -19,6 +19,7 @@ class Router{
 
 	public static function get_route($routes){
 		foreach ($routes as $pattern => $handler) {
+			
 			if(preg_match($pattern, $_SERVER['REQUEST_URI'])){
 				call_user_func($handler);
 				exit;

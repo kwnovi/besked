@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Besked</title>
+
+    <link rel="stylesheet" href="../css/home.css" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+
+  </head>
+
+  <body>
+
+
+
+<header>
+  <h2><a href="index.html">Besked</a></h2>
+  <h4>Messaging system made shockingly simple.</h4>
+<div class="global_button">
+<button type="button" class="login">Login</button>
+<span class="bolt"><i class="fa fa-bolt fa-2x"></span></i>
+<button type="button" class="signup">Sign up</button>
+</div>
+
+<div class="connection" style="display:none">
+  <form action="#">
+      
+        <input type="text" class="field" placeholder="E-mail"/>
+        <input type="password"  class="field" placeholder="Password">
+
+        <input type="submit" class="submit" value="Sign in">
+  </form>
+
+ <div class="feedback">
+    <a href="index.html"><i class="fa fa-angle-double-left"></i> Retour</a> &nbsp;&nbsp;&nbsp; <input type="checkbox"> Se souvenir de moi
+  </div>
+
+
+</div>
+
+
+<div class="inscription" style="display:none;">
+  <form action="#">
+        <input type="text"  class="field" placeholder="Nickname"/>
+        <input type="text"  class="field" placeholder="E-mail"/>
+        <input type="password"  class="field" placeholder="Password">
+        <input type="submit" class="submit" value="Sign up ">
+  </form>
+
+  <div class="feedback">
+    <a href="index.html"><i class="fa fa-angle-double-left"></i> Retour</a> &nbsp;&nbsp;&nbsp; <input type="checkbox"> Se souvenir de moi
+  </div>
+
+</div>
+
+
+</header>
+
+
+
+    <script type="text/javascript">
+      window.onload = function() {    
+        
+        $('.login').click(function(){
+         
+          $('.connection').show();
+          $('.global_button').hide();
+
+        })
+
+        $('.signup').click(function(){
+          $('.inscription').show();
+        
+          $('.global_button').hide();
+        })
+      }
+    </script>
+       <script src="../js/jquery.js"></script>
+  
+  </body>
+</html>
