@@ -14,6 +14,7 @@ Router::get_instance()->get_route(array(
 	"#^/$#" => "home_view",
 	"#^/besked/$#" => "home_view", // dev
 	"#users/[a-zA-Z0-9/?=]#" => "user_routes_handler",
+	"#user/[a-zA-Z0-9/?=]#" => "user_routes_handler",
 	"#messages/[a-zA-Z0-9/?=]#" => "messages_routes_handler",
 	"#discussions/[a-zA-Z0-9/?=]#" => "discussions_route_handler",
 	));

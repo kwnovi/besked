@@ -63,11 +63,19 @@ function signup(){
 
 function get_all_users (){
 	$status_code = 200;
-	//var_dump(User::find_all());
 	header('HTTP/1.0 '.$status_code);
     header('Content-Type: application/json');
-
     echo json_encode(User::find_all());
+}
 
-
+function get_contacts(){
+	$user = User::get_by_id($_SESSION['userID']);
+	$contacts = $user->get_contacts();
+	$data = array();
+	for ($i=0; $i < count($contacts); $i++) { 
+		$data[$i] = $contacts[$i]->get_fields_values();
+	}
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
+    echo json_encode($data);
 }

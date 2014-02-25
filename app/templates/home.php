@@ -306,3 +306,7 @@
 </div>
 
 </div>
+  <script type="text/javascript">
+   //chargement des données de l'utilisateur connecté
+   var USER_DATA = <?php echo $user->toJson();?>
+  </script>

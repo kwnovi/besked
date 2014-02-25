@@ -16,7 +16,7 @@ abstract class Model{
 	// on retourne un nouvel objet ou on le charge dans l'instance courante ?
 	public function find($id){
 		//$fields = implode(',', $this->get_fields_names());
-		$fields = $this::fields_names;
+		$fields = $this->get_fields_names();
 		$table = $this::table_name;
 
 		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1", array('id' => $id));
@@ -125,11 +125,9 @@ abstract class Model{
 		$this->fields[$attr]['updated'] = true;
 	}
 	
-	public function get_fields_names(){ return array_keys($this->fields);}
-	
-	public function get_fields(){
+	public function get_fields_values(){
 		$fields = array();
-		foreach ($fields as $key => $val) {
+		foreach ($this->fields as $key => $val) {
 			$fields[$key] = $val['value'];
 		}
 		return $fields;
@@ -149,12 +147,14 @@ abstract class Model{
 		return (int) $this->fields['id']['value'];
 	}
 
-
 	public static function find_all (){
-		$stmt = self::query("SELECT ".static::fields_names." FROM ".static::table_name);
+		$stmt = self::query("SELECT ".static::get_fields_names()." FROM ".static::table_name);
 		$results = self::execute($stmt);
 		return $results;
 
 	}
 
+	public function toJson(){
+		return json_encode($this->get_fields_values());
+	}
 }

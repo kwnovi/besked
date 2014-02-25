@@ -19,9 +19,13 @@ class Router{
 
 	public static function get_route($routes){
 		foreach ($routes as $pattern => $handler) {
-			
 			if(preg_match($pattern, $_SERVER['REQUEST_URI'])){
-				call_user_func($handler);
+				$handler_sanitized = explode(';',$handler);
+				if($handler_sanitized[0] == "A"){
+					self::check_authentification();
+					$handler_sanitized[0] = $handler_sanitized[1];
+				}
+				call_user_func($handler_sanitized[0]);
 				exit;
 			}
 		}
@@ -32,7 +36,17 @@ class Router{
 		header("HTTP/1.0 404 Not Found", false, 404);
 		$view = new View(__TEMPLATES_DIR__.'404.php');
 		$view->render();
-		 exit;
+		exit;
 	}
+
+	private static function check_authentification(){
+		session_start();
+		if(!isset($_SESSION['userID'])){
+			session_write_close();
+			header("Location: /",true,401);
+			exit;
+		}
+	}
+
 }
 
