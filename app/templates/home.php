@@ -48,22 +48,6 @@
 <div id="contact-list"  >
   
   <ul>
-    <li> <span class="size-ic connected"><i class="fa fa-circle"></i></span> Burnell Corbeil</li>
-    <li> <span class="size-ic"><i class="fa fa-circle-o"></i></span> Calvin Peterson</li>
-    <li><span class="size-ic connected"><i class="fa fa-circle "></i></span> Luce Déziel </li>
-    <li><span class="size-ic connected"><i class="fa fa-circle"></i></span> Christine Melanson </li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Burnell Corbeil</li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Calvin Peterson</li>
-    <li><span class="size-ic connected"><i class="fa fa-circle"></i></span> Luce Déziel </li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Christine Melanson </li>
-        <li> <span class="size-ic connected"><i class="fa fa-circle"></i></span> Burnell Corbeil</li>
-    <li> <span class="size-ic"><i class="fa fa-circle-o"></i></span> Calvin Peterson</li>
-    <li><span class="size-ic connected"><i class="fa fa-circle "></i></span> Luce Déziel </li>
-    <li><span class="size-ic connected"><i class="fa fa-circle"></i></span> Christine Melanson </li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Burnell Corbeil</li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Calvin Peterson</li>
-    <li><span class="size-ic connected"><i class="fa fa-circle"></i></span> Luce Déziel </li>
-    <li><span class="size-ic"><i class="fa fa-circle-o"></i></span> Christine Melanson </li>
   </ul>
 
 </div>
@@ -184,6 +168,7 @@
 <script type="text/template" id="contact_template">
   <% if(data.connected){ %>
   <span class="size-ic connected"><i class="fa fa-circle"></i></span> <%= data.nickname %>
-  <% else %>
+  <% } else { %>
   <span class="size-ic"><i class="fa fa-circle-o"></i></span> <%= data.nickname %>
+  <% } %>
 </script>
