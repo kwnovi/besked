@@ -7,7 +7,7 @@
        <i class="fa fa-cog"></i> 
      </a></h5> 
 
-         <h5><a  href="#" rel="tooltip" data-original-title="Se déconnecter">
+         <h5><a  href="/besked/users/logout" rel="tooltip" data-original-title="Se déconnecter">
        <i class="fa fa-sign-out"></i>
      </a></h5> 
 
