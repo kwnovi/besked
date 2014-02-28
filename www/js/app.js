@@ -21,7 +21,7 @@ $(function(){
 
 	var user = new UserModel(USER_DATA);
 
-	var UserContacts = Backbone.Collection.extend({
+	var UserContacts = Backbone.Collection.extend({ //Collection = ensemble de modèle 
   		model: UserModel,
   		url: "/besked/user/contacts"
 	});
@@ -30,7 +30,7 @@ $(function(){
 
 	var UserView = Backbone.View.extend({
 		tagName: "li",
-		el: $("#contacts-list ul")
+		el: $("#contacts-list ul"), // point d'attache dans le dom 
 		template: _.template($('#contact_template').html()),
 
 		initialize: function() {
@@ -38,7 +38,7 @@ $(function(){
 		},
 
 		render: function(){
-			this.$el.html(this.template(this.model.attributes));
+			this.$el.html(this.template(this.model.attributes)); //le rendu 
     		return this;
 		}
 	});
@@ -53,7 +53,7 @@ $(function(){
 		    this._userViews = [];
 		 
 		    this.collection.each(function(user) {
-		      that._userViews.push(new UserView({
+		      that._userViews.push(new UserView({ // rajout d'un element dans le tableau
 		        model: user
 		      }));
 		    });
@@ -68,5 +68,5 @@ $(function(){
 		}
 	});
 
-	var contacts = new ContactsView({collection: ContactsCollection});
+	var contacts = new ContactsView({collection: ContactsCollection}); // this.collection <- ContactsCollection ref 29  (instancié en 29)
 });

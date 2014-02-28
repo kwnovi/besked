@@ -1,6 +1,9 @@
 <?php
 require_once(__APP_DIR__.'users'._SL_.'route.php');
 require_once(__APP_DIR__.'users'._SL_.'actions.php');
+require_once(__APP_DIR__.'discussions'._SL_.'route.php');
+require_once(__APP_DIR__.'discussions'._SL_.'actions.php');
+
 require_once(__APP_DIR__.'views'._SL_.'home.php');
 require_once(__APP_DIR__.'view.php');
 

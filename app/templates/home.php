@@ -182,7 +182,7 @@
 </div>
 
 <script type="text/template" id="contact_template">
-  <% if(data.connected){ %>
+  <% if(data.connected){ %> // chevron pour metre du code js et <%= juste injecter une valeure et <% -  pour injecter une valeur échappé 
   <span class="size-ic connected"><i class="fa fa-circle"></i></span> <%= data.nickname %>
   <% else %>
   <span class="size-ic"><i class="fa fa-circle-o"></i></span> <%= data.nickname %>
