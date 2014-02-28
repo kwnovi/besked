@@ -1,6 +1,6 @@
 <?php
 require_once(__APP_DIR__.'model.php');
-require_once(__APP_DIR__.'users'._SL_.'model.php');
+//require_once(__APP_DIR__.'users'._SL_.'model.php');
 
 class Discussion extends Model{
 	const table_name = "discussion";
@@ -26,17 +26,17 @@ class Discussion extends Model{
 		return $instance;
 	}
 
-
-
-	public static function get_user_all_discussion(){
-		$stmt = self::query("SELECT title, id FROM USER_DISCUSSION JOIN DISCUSSION ON USER_DISCUSSION.discussion_id = DISCUSSION.id WHERE USER_DISCUSSION.user_id = :id", 
-			array(
-				'id'=>$this->get_id(),
-			)
-			);
+	public static function get_user_all_discussions($user_id){
+		$stmt = self::query("SELECT ".self::fields_names." 
+							 FROM USER_DISCUSSION 
+							 JOIN DISCUSSION ON USER_DISCUSSION.discussion_id = DISCUSSION.id 
+							 WHERE USER_DISCUSSION.user_id = :id", 
+							array(
+								'id'=> $user_id,
+							)
+						);
 		$result = self::execute($stmt);
 		return $result;
-
 	}
 
 }
