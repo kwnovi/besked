@@ -1,6 +1,6 @@
 <?php
 //includes
-define("_SL_", '/');
+define("_SL_", ((PHP_OS != "WINNT")?'/':'\\'));
 define("__APP_DIR__", dirname(__FILE__)._SL_.'app'._SL_);
 define("__TEMPLATES_DIR__", __APP_DIR__.'templates'._SL_);
 
