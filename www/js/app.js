@@ -83,7 +83,7 @@ $(function(){
 		add: function(){
 			$.get("/user/add_contact"+this.model.id, null,
 				success:function(){
-
+					
 				})
 		}
 	});
