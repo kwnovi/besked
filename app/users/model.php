@@ -98,6 +98,14 @@ class User extends Model{
 		$results = self::execute($stmt);
 		return self::users_from_array($results);
 	}
+
+	public static function find_by_nickname($search_term){
+		$stmt = self::query("SELECT ".self::get_fields_names()." FROM ".self::table_name."
+							 WHERE nickname LIKE :nickname", 
+							array('nickname'=>'%'.$search_term.'%'));
+		$results = self::execute($stmt);
+		return $results;
+	}
 /*
 	public static function __construct_fill_fields($fields_values){
 		$instance = new self();

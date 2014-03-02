@@ -1,75 +1,57 @@
 $(function(){
-
-	/*var Navigation = Backbone.Router.extend({
+	var Navigation = Backbone.Router.extend({
 		routes: {
-			"contacts": contacts,
-			"messages": messages
+			"add_contacts": "add_contacts",
+			"messages": "messages"
 		},
-		contacts: function(){
-			$("#contact-list").show();
-			$("#msg-list").hide();
+		add_contacts: function(){
+			$(".corpus-view").each(function(){
+				$(this).hide();
+			});
+			$("#add-contact-view").show();
 		},
 		messages: function(){
-			$("#contact-list").hide();
-			$("#msg-list").show();
+			$(".corpus-view").each(function(){
+				$(this).hide();
+			});
+			$("#hello-view").show();
 		}
-	});*/
-
-	var UserModel = Backbone.Model.extend({
-	
 	});
+
+	var UserModel = Backbone.Model.extend({});
 
 	//var user = new UserModel(USER_DATA);
 
-<<<<<<< HEAD
-	var UserContacts = Backbone.Collection.extend({ //Collection = ensemble de modèle 
-=======
-	var UserCollection = Backbone.Collection.extend({
->>>>>>> 03fedda40c1aa5df4d546c6ee3bee7d2498b4cb4
+	var UserCollection = Backbone.Collection.extend({//Collection = ensemble de modèle
   		model: UserModel,
-  		url: "/besked/user/contacts"
 	});
 
 	var UserView = Backbone.View.extend({
 		tagName: "li",
-<<<<<<< HEAD
-		el: $("#contacts-list ul"), // point d'attache dans le dom 
-=======
-		//el: $("#contacts-list ul"),
->>>>>>> 03fedda40c1aa5df4d546c6ee3bee7d2498b4cb4
-		template: _.template($('#contact_template').html()),
+		template: _.template($("#"+this.template_id).html()),
 
 		initialize: function() {
 		    this.listenTo(this.model, "change", this.render);
 		},
 
 		render: function(){
-<<<<<<< HEAD
-			this.$el.html(this.template(this.model.attributes)); //le rendu 
-=======
-			this.$el.html(this.template({data:this.model.attributes}));
->>>>>>> 03fedda40c1aa5df4d546c6ee3bee7d2498b4cb4
+			this.$el.html(this.template({data:this.model.attributes}));//le rendu
     		return this;
 		}
 	});
 
 	var ContactsView = Backbone.View.extend({
-		el: $("#contact-list>ul"),
+		el: $("#contact-list>ul"),// point d'attache dans le dom 
 
 		initialize: function() {
 		    this.listenTo(this.collection, "change", this.render);
 		    var that = this;
 		    this._userViews = []; 
 		    this.collection.each(function(user) {
-<<<<<<< HEAD
 		      that._userViews.push(new UserView({ // rajout d'un element dans le tableau
-		        model: user
+		        model: user,
+		        template_id: "contact_template"
 		      }));
-=======
-			    that._userViews.push(new UserView({
-			    	model: user
-			    }));
->>>>>>> 03fedda40c1aa5df4d546c6ee3bee7d2498b4cb4
 		    });
 		},
 
@@ -82,21 +64,75 @@ $(function(){
 		}
 	});
 
-<<<<<<< HEAD
-	var contacts = new ContactsView({collection: ContactsCollection}); // this.collection <- ContactsCollection ref 29  (instancié en 29)
-=======
+	var SearchResultsView = Backbone.View.extend({
+		el: $("#contact-list>ul"),// point d'attache dans le dom 
+
+		initialize: function() {
+		    this.listenTo(this.collection, "change", this.render);
+		    var that = this;
+		    this._userViews = []; 
+		    this.collection.each(function(user) {
+		      that._userViews.push(new UserView({ // rajout d'un element dans le tableau
+		        model: user,
+		        template_id: "search_result_template"
+		      }));
+		    });
+		},
+
+		render: function(){
+			var that = this;
+		    this.$el.empty();
+			_(this._userViews).each(function(userView) {
+			    $(that.el).append(userView.render().el);
+			});
+		}
+	})
+
+	var nav = new Navigation();
+	Backbone.history.start();
 	var contacts_view;
-	var contacts_collection = new UserCollection();
+	var contacts_collection = new UserCollection()
+	contacts_collection.url = "/besked/user/contacts";
     contacts_collection.fetch({
     	success: function(){
-    		contacts_view = new ContactsView({collection: contacts_collection});
+    		contacts_view = new ContactsView({collection: contacts_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
     		contacts_view.render();
     	},
     	error: function(){
     		console.log("error");
     	}
     });
-	 
-	
->>>>>>> 03fedda40c1aa5df4d546c6ee3bee7d2498b4cb4
+
+    // à mettre dans le router
+    var users_search_results = new UserCollection();
+    users_search_result.url = function(){return 'users/nickname/' + this.search_term;}
+    var users_search_results_view = new SearchResultsView();
+    // CONTACT SEARCH
+    $('#add-contact-searchbar').keyup(function(){ 
+        var search_term = $(this).attr('value');
+        if( search_term != ''){ 
+       		users_search_results.search_term = search_term;
+       		users_search_results.fetch({
+       			success: function(){
+       				users_search_results_view.collection = users_search_results;
+       				users_search_results_view.render();
+       			}
+       		});
+        } 
+        else { 
+            $('.result').html(''); 
+        } 
+    }); 
+    
+    $('.result li').click(function(){ 
+	    var result_val = $(this).children("a").text(); 
+	    $('.autosuggest').attr('value',result_val); 
+	    $('.result').html(''); 	      
+	    var lien = $(this).children('a').attr('href'); 
+	}); 
+
+    // pour enlever le dropdown quand on clic hors du dropdown 
+    $("*").not('.autosuggest').click(function(){ 
+        $('.result').html(''); 
+    }); 
 });

@@ -12,7 +12,7 @@
 			   
 			});
 
-
+/*
 			function showContact() {
 				$("#contact-list").show();
 				$("#msg-list").hide();
@@ -22,6 +22,6 @@
 			function showMsg() {
 				$("#msg-list").show();
 				$("#contact-list").hide();
-			}
+			}*/
 
 

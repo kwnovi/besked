@@ -1,19 +1,26 @@
-  <nav id="A1">
-
-    <h2><i class="fa fa-bolt"></i></h2>
-
-
-    <h5><a href ="#" rel="tooltip" data-original-title="Paramètres de votre compte">
-       <i class="fa fa-cog"></i> 
-     </a></h5> 
-
-         <h5><a  href="/besked/users/logout" rel="tooltip" data-original-title="Se déconnecter">
-       <i class="fa fa-sign-out"></i>
-     </a></h5> 
-
-  </nav>
-
-
+<nav id="A1">
+  <h2><i class="fa fa-bolt"></i></h2>
+  <h5>
+    <a href ="#messages" rel="tooltip" data-original-title="Liste des conversations">
+      <i class="fa fa-comments"></i> 
+    </a>
+  </h5> 
+  <h5>
+    <a href ="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact">
+     <i class="fa fa-bars"></i> 
+    </a>
+  </h5> 
+  <h5>
+    <a href ="#" rel="tooltip" data-original-title="Paramètres de votre compte">
+     <i class="fa fa-cog"></i> 
+    </a>
+  </h5> 
+  <h5>
+    <a  href="/besked/users/logout" rel="tooltip" data-original-title="Se déconnecter">
+     <i class="fa fa-sign-out"></i>
+    </a>
+  </h5> 
+</nav>
 <aside id="A2">
       
       <div class="menu" id="B1">
@@ -155,20 +162,32 @@
 
 
 <div class="corpus">
-
-<h1>Welcome Rachelle Sanschagrin !</h1>
-
-<p><strong>Meaningful but nonetheless useless shit here ..</strong>  </p>
-
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
+  <!-- VUE A LA CONNEXION -->
+  <div id="hello-view" class="corpus-view">
+    <h1>Welcome Rachelle Sanschagrin !</h1>
+    <p><strong>Meaningful but nonetheless useless shit here ..</strong>  </p>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+  </div>
+  <!-- VUE AJOUTER CONTACT -->
+  <div class="corpus-view" id="add-contact-view" style="display: none">
+    <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
+    <div class="description">
+      <input id="add-contact-searchbar" type="text" class="form-control nouveau_contact" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
+      <div class="add-contact-resultbox">
+        <ul></ul>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 <script type="text/template" id="contact_template">
-  <% if(data.connected){ %> // chevron pour metre du code js et <%= juste injecter une valeure et <% -  pour injecter une valeur échappé 
+  <% if(data.connected){ %> 
   <span class="size-ic connected"><i class="fa fa-circle"></i></span> <%= data.nickname %>
   <% } else { %>
   <span class="size-ic"><i class="fa fa-circle-o"></i></span> <%= data.nickname %>
   <% } %>
+</script>
+<script type="text/template" id="search_result_template">
+  <a>data.nickname</a>
 </script>

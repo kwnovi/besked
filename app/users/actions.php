@@ -115,3 +115,10 @@ function get_contacts(){
     header('Content-Type: application/json');
     echo json_encode($data);
 }
+
+function find_by_nickname(){
+	$search_term = explode("/",$_SERVER['REQUEST_URI'])[4];//dernier param
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
+    echo json_encode(User::find_by_nickname($search_term));
+}

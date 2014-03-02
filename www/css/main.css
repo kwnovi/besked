@@ -116,7 +116,7 @@ padding-top: 20px;
 padding-left: 200px;
 
 }
-.profil {
+#add-contact-view {
   padding-top: 10px;
   margin-bottom: 70px;
   height: 90px;
@@ -217,18 +217,16 @@ display: block;
   border-bottom: 1px solid #ecf0f1;
 }
 
-  .size-ic {
-    font-size: 12px;
-    margin-right: 20px;
-  }
+.size-ic {
+  font-size: 12px;
+  margin-right: 20px;
+}
 
-  .nouveau_contact {
+.nouveau_contact {
   width: 600px !important;
   height: 40px !important;
   float:left;
-
-
-  }
+}
 
 #chargement {
 padding-top: 200px;
