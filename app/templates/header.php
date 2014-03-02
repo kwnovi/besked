@@ -9,7 +9,7 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     <!-- CSS -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo __WWW_DIR__;?>/css/main.css" rel="stylesheet">
+    <!--<link href="<?php echo __WWW_DIR__;?>/css/main.css" rel="stylesheet">-->
     <link href="<?php echo __WWW_DIR__;?>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo __WWW_DIR__;?>/css/homepage.css" rel="stylesheet">
     <!--<link href="<?php echo __WWW_DIR__;?>/css/cover.css" rel="stylesheet">-->

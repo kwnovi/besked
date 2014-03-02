@@ -2,7 +2,8 @@ $(function(){
 	var Navigation = Backbone.Router.extend({
 		routes: {
 			"add_contacts": "add_contacts",
-			"messages": "messages"
+			"messages": "messages",
+			"user_profile/:user_id": "user_profile"
 		},
 		add_contacts: function(){
 			$(".corpus-view").each(function(){
@@ -15,6 +16,14 @@ $(function(){
 				$(this).hide();
 			});
 			$("#hello-view").show();
+		},
+		user_profile: function(user_id){
+			$(".corpus-view").each(function(){
+				$(this).hide();
+			});
+			$("#user-profile-view").show();
+			user_profile_view = new UserProfileView({model: users_search_results.findWhere({id:user_id})});
+			user_profile_view.render();
 		}
 	});
 
@@ -24,18 +33,66 @@ $(function(){
 
 	var UserCollection = Backbone.Collection.extend({//Collection = ensemble de modèle
   		model: UserModel,
+
+  		getResults: function(){
+  			var result = [];
+  			_(this.models).each(function(user){
+  				result.push(user.nickname);
+  			})
+  			return result;
+  		}
 	});
 
-	var UserView = Backbone.View.extend({
+	var UserContactView = Backbone.View.extend({
 		tagName: "li",
-		template: _.template($("#"+this.template_id).html()),
-
-		initialize: function() {
+		template: _.template($("#contact_template").html()),
+		initialize: function(options) {
+			this.model = options.model;
 		    this.listenTo(this.model, "change", this.render);
 		},
 
 		render: function(){
 			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+    		return this;
+		}
+	});
+
+	var UserSearchView = Backbone.View.extend({
+		tagName: "li",
+		template: _.template($("#search_result_template").html()),
+		initialize: function(options) {
+			this.model = options.model;
+		    this.listenTo(this.model, "change", this.render);
+		},
+		render: function(){
+			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+    		return this;
+		}
+	});
+
+	var UserProfileView = Backbone.View.extend({
+		el: $("#user-profile-view"),
+		template: _.template($("#user-profile-template").html()),
+		event:{
+			"click #btn-add": "add"
+		},
+		render: function(){
+			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+    		return this;
+		},
+		add: function(){
+			$.get("/user/add_contact"+this.model.id, null,
+				success:function(){
+
+				})
+		}
+	});
+
+	var FlashView = Backbone.View.extend({
+		el: $("#flashbox"),
+		template: _.template('<%= message %>'),
+		render: function(){
+			this.$el.html(this.template({message:this.model.message}));//le rendu
     		return this;
 		}
 	});
@@ -48,9 +105,9 @@ $(function(){
 		    var that = this;
 		    this._userViews = []; 
 		    this.collection.each(function(user) {
-		      that._userViews.push(new UserView({ // rajout d'un element dans le tableau
+		    	// rajout d'un element dans le tableau
+		      that._userViews.push(new UserContactView({ 
 		        model: user,
-		        template_id: "contact_template"
 		      }));
 		    });
 		},
@@ -65,16 +122,16 @@ $(function(){
 	});
 
 	var SearchResultsView = Backbone.View.extend({
-		el: $("#contact-list>ul"),// point d'attache dans le dom 
+		el: $("#add-contact-resultbox ul"),// point d'attache dans le dom 
 
 		initialize: function() {
-		    this.listenTo(this.collection, "change", this.render);
+		    //this.listenTo(this.collection, "change", this.render);
 		    var that = this;
 		    this._userViews = []; 
 		    this.collection.each(function(user) {
-		      that._userViews.push(new UserView({ // rajout d'un element dans le tableau
+		    	// rajout d'un element dans le tableau
+		      that._userViews.push(new UserSearchView({ 
 		        model: user,
-		        template_id: "search_result_template"
 		      }));
 		    });
 		},
@@ -87,6 +144,8 @@ $(function(){
 			});
 		}
 	})
+
+
 
 	var nav = new Navigation();
 	Backbone.history.start();
@@ -105,34 +164,71 @@ $(function(){
 
     // à mettre dans le router
     var users_search_results = new UserCollection();
-    users_search_result.url = function(){return 'users/nickname/' + this.search_term;}
-    var users_search_results_view = new SearchResultsView();
+    users_search_results.url = function(){return 'users/nickname/' + this.search_term;};
+    var users_search_results_view ;
     // CONTACT SEARCH
-    $('#add-contact-searchbar').keyup(function(){ 
-        var search_term = $(this).attr('value');
-        if( search_term != ''){ 
-       		users_search_results.search_term = search_term;
-       		users_search_results.fetch({
-       			success: function(){
-       				users_search_results_view.collection = users_search_results;
-       				users_search_results_view.render();
-       			}
-       		});
+
+
+    searchbar_el.keyup(function(e){ 
+        var search_term = $(this).attr('value').trim();
+        if( search_term != ''){
+        	if(e.keyCode == UP){
+        		if(index <= 0){
+			        index = nb_items-1;
+			    } else {
+			    	index--;
+			    }
+				change_selection();
+        	} else if (e.keyCode == DOWN){
+    			if(index > nb_items){
+			        index = 0;
+			    } else {
+			    	index++;
+			    }
+				change_selection();
+        	} else if (e.keyCode == ENTER){
+				$list_el.find('.selected').click();
+        	} else if (e.keyCode == ESCAPE){
+        		// marche pas
+        		searchbar_el.val('');
+        		list_el.empty();
+        		users_search_results.reset();
+        	} else {
+				users_search_results.search_term = search_term;
+	       		users_search_results.fetch({
+	       			success: function(){
+	       				/*$("#add-contact-searchbar").autocomplete({
+	       					source: function(){ return users_search_results.getResults()}
+	       				});*/
+	       				users_search_results_view = new SearchResultsView({collection : users_search_results});
+	       				users_search_results_view.render();
+	       				nb_items = list_el.length;
+	       			}
+	       		});
+        	}
         } 
         else { 
-            $('.result').html(''); 
+            list_el.empty();
+            index = -1;
+            nb_items = 0; 
         } 
     }); 
-    
-    $('.result li').click(function(){ 
-	    var result_val = $(this).children("a").text(); 
-	    $('.autosuggest').attr('value',result_val); 
-	    $('.result').html(''); 	      
-	    var lien = $(this).children('a').attr('href'); 
-	}); 
 
-    // pour enlever le dropdown quand on clic hors du dropdown 
-    $("*").not('.autosuggest').click(function(){ 
-        $('.result').html(''); 
-    }); 
 });
+
+
+    var DOWN = 40; 
+    var UP = 38; 
+    var ENTER = 13; 
+    var ESCAPE = 27; 
+    var list_el = $("#add-contact-resultbox>ul");
+    var searchbar_el = $('#add-contact-searchbar');
+    var index = -1;
+    var nb_items = list_el.length;
+
+	function change_selection(){
+		console.log(index);
+	  list_el.children().removeClass('selected');
+	  list_el.children().eq(index).addClass('selected');
+	  searchbar_el.val(list_el.children().eq(index).text().trim());
+	}

@@ -90,3 +90,8 @@ font-family: "Alright Sans","Helvetica Neue",Helvetica,sans-serif;
 	text-decoration: none;
 
 }
+
+#add-contact-resultbox>ul li{
+	list-style: none;
+	border: 1px solid black;
+}

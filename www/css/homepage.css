@@ -258,3 +258,22 @@ overflow-y: auto;
   text-align: justify;
 }
 
+#add-contact-resultbox ul{
+  margin-top: 55px;
+  padding: 0; 
+}
+
+#add-contact-resultbox>ul li{
+  list-style: none;
+  border: 1px solid black;
+  size: 2em;
+  padding: 5px 0 5px 10px;
+}
+
+#add-contact-resultbox>ul li.selected{
+  background-color: #f5f5f5;
+}
+
+#add-contact-resultbox>ul li:hover{
+  background-color: #f5f5f5;
+}

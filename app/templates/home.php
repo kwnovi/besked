@@ -173,12 +173,19 @@
     <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
     <div class="description">
       <input id="add-contact-searchbar" type="text" class="form-control nouveau_contact" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
-      <div class="add-contact-resultbox">
+      <div id="add-contact-resultbox">
         <ul></ul>
       </div>
     </div>
   </div>
+  <!-- VUE AJOUTER CONTACT -->
+  <div class="corpus-view" id="user-profile-view" style="display: none">
+  </div>
+</div>
 
+<!-- FLASHBOX -->
+<div id="flashbox">
+  
 </div>
 
 <script type="text/template" id="contact_template">
@@ -188,6 +195,19 @@
   <span class="size-ic"><i class="fa fa-circle-o"></i></span> <%= data.nickname %>
   <% } %>
 </script>
+
 <script type="text/template" id="search_result_template">
-  <a>data.nickname</a>
+  <a href="#user_profile/<%=data.id%>"><%=data.nickname%></a>
+</script>
+
+<script type="text/template" id="user-profile-template">
+  <div class="photo"><img src="<%= data.picture_path %>" alt="Profil" class="img-circle" /></div>
+  <h1><%=data.nickname%></h1>
+  <div class="description">
+  </div>
+  <button id="btn-add" type="button" class="btn btn-primary">Ajouter</a>
+</script>
+
+<script type="text/template" id="flashbox_template">
+  <%= data.message %>
 </script>
