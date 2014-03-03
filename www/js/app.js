@@ -73,18 +73,18 @@ $(function(){
 	var UserProfileView = Backbone.View.extend({
 		el: $("#user-profile-view"),
 		template: _.template($("#user-profile-template").html()),
-		event:{
+		events:{
 			"click #btn-add": "add"
 		},
 		render: function(){
 			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+			this.delegateEvents();
     		return this;
 		},
 		add: function(){
-			$.get("/user/add_contact"+this.model.id, null,
-				success:function(){
-					
-				})
+				console.log('toto');
+			$.get("/besked/user/add_contact/"+this.model.id, null,function(data){
+			});
 		}
 	});
 
@@ -187,7 +187,7 @@ $(function(){
 			    }
 				change_selection();
         	} else if (e.keyCode == ENTER){
-				$list_el.find('.selected').click();
+				list_el.find('.selected').click();
         	} else if (e.keyCode == ESCAPE){
         		// marche pas
         		searchbar_el.val('');

@@ -1,5 +1,5 @@
 <nav id="A1">
-  <h2><i class="fa fa-bolt"></i></h2>
+  <h2><a href="/besked"><i class="fa fa-bolt"></i></a></h2>
   <h5>
     <a href ="#messages" rel="tooltip" data-original-title="Liste des conversations">
       <i class="fa fa-comments"></i> 
@@ -209,5 +209,5 @@
 </script>
 
 <script type="text/template" id="flashbox_template">
-  <%= data.message %>
+  
 </script>

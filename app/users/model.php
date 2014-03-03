@@ -106,6 +106,18 @@ class User extends Model{
 		$results = self::execute($stmt);
 		return $results;
 	}
+
+	public function add_contact($contact_id){
+		$stmt = self::query("INSERT INTO  contact (user_id_1 ,user_id_2)
+							 VALUES (:id, :contact_id)", 
+							array(
+								'id'=> $this->get_id(),
+								'contact_id'=> $contact_id
+								));
+		$results = self::execute($stmt);
+		return $results;
+	}
+
 /*
 	public static function __construct_fill_fields($fields_values){
 		$instance = new self();

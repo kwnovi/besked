@@ -122,3 +122,12 @@ function find_by_nickname(){
     header('Content-Type: application/json');
     echo json_encode(User::find_by_nickname($search_term));
 }
+
+function add_contact(){
+	$id = explode("/",$_SERVER['REQUEST_URI'])[4];
+	$user = User::get_by_id($_SESSION['userID']);
+	
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
+    echo json_encode(array('response'=>$user->add_contact($id)));
+}
