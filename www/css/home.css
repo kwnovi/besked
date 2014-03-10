@@ -1,21 +1,23 @@
 
 body {
 	background-color: #f5f5f5;
+	 font-family: "Alright Sans","Helvetica Neue",Helvetica,sans-serif;
 }
 
 header {
 display: block;
-
 width:800px;
 margin: 0 auto;
 text-align: center;
+background-image: url(./www/img/back.png) ;
 padding-top: 100px;
 
 }
 
+
 header h2 a {color: black; text-decoration: none;}
 header h2 {
-font-family: 'Lato', sans-serif;
+	font-family: 'Lato', sans-serif;
     font-weight: 100;
 	font-size: 40px;
 	margin-bottom: -30px;
@@ -35,29 +37,27 @@ header button {
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
 	font-weight: normal;
-
-
 }
 
-.login {
+#btn-login {
 	background-color: #7ad4ce;
 	margin: -10px 15px 0 0;
 
 }
-.login:hover{
+#btn-login:hover{
 	background-color: #48c4bb;
 }
-.signup {
+#btn-signup {
 	background-color: #fdc44f;
 	margin:-5px 0 0  15px;
 
 }
-.signup:hover {
+#btn-signup:hover {
 	background-color: #fcae0d;
 }
 
-.bolt {
-	padding-top: 20px;
+.global_button {
+	display: block;
 }
 header .submit {
 		display:block;
@@ -72,6 +72,7 @@ header .submit {
 	background-color: #2980b9 !important;
 	font-weight: bold;
 }
+
 header .field {
 	display:block;
 	margin: 0 auto;
@@ -95,3 +96,27 @@ font-family: "Alright Sans","Helvetica Neue",Helvetica,sans-serif;
 	list-style: none;
 	border: 1px solid black;
 }
+
+
+.form-control {
+	width:200px;
+	height: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
+.form-group {
+	text-align:center;
+}
+
+.btn {
+	background-color: #3498db;
+	color:white;
+	width: 205px;
+	height:25px;
+	border: none;
+	margin-top: 10px;
+}
+
+
+
+
