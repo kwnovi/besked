@@ -31,7 +31,7 @@
       
         <input type="text" class="field" placeholder="E-mail"/>
         <input type="password"  class="field" placeholder="Password">
-
+         <?php if($login_data) echo "<span class=\"help-block\">$login_data</span>";?> 
         <input type="submit" class="submit" value="Sign in">
   </form>
 
@@ -45,9 +45,14 @@
 
 <div class="inscription" style="display:none;">
   <form action="<?php echo __ROOT__;?>users/signup">
+
+  <?php if(!$signup_data):?>
         <input type="text"  class="field" placeholder="Nickname"/>
         <input type="text"  class="field" placeholder="E-mail"/>
         <input type="password"  class="field" placeholder="Password">
+
+  <?php else:?>
+  <?php if($signup_data['nickname']['error']):?>
         <input type="submit" class="submit" value="Sign up ">
   </form>
 
