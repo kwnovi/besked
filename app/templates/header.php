@@ -11,6 +11,8 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <!--<link href="<?php echo __WWW_DIR__;?>/css/main.css" rel="stylesheet">-->
     <link href="<?php echo __WWW_DIR__;?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>/css/alertify.core.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>/css/alertify.bootstrap.css" rel="stylesheet">
     <link href="<?php echo __WWW_DIR__;?>/css/homepage.css" rel="stylesheet">
     <!--<link href="<?php echo __WWW_DIR__;?>/css/cover.css" rel="stylesheet">-->
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -19,5 +21,4 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
   <body>

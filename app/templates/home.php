@@ -1,3 +1,4 @@
+<!-- MENU -->
 <nav id="A1">
   <h2><a href="/besked"><i class="fa fa-bolt"></i></a></h2>
   <h5>
@@ -11,7 +12,7 @@
     </a>
   </h5> 
   <h5>
-    <a href ="#" rel="tooltip" data-original-title="Paramètres de votre compte">
+    <a href ="#account" rel="tooltip" data-original-title="Paramètres de votre compte">
      <i class="fa fa-cog"></i> 
     </a>
   </h5> 
@@ -181,11 +182,22 @@
   <!-- VUE AJOUTER CONTACT -->
   <div class="corpus-view" id="user-profile-view" style="display: none">
   </div>
-</div>
-
-<!-- FLASHBOX -->
-<div id="flashbox">
-  
+    <!-- VUE ACCOUNT -->
+  <div class="corpus-view" id="account-view" style="display: none">
+    <form action="/user/edit" id="account-form" enctype="multipart/form-data" method="post" style="display: block">
+      <div class="row">
+        <div class="form-group col-xs-6">
+          <label for="description">Description</label>
+          <textarea class="form-control" type="text-area" row="3" name="description" style="height:200px!important" placeholder="Tell a bit more about yourself"></textarea>
+        </div>
+      </div>
+      <div class="form-group">  
+        <label for="picture">Picture</label>
+        <input type="file" name="picture">
+      </div>
+      <button class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 </div>
 
 <script type="text/template" id="contact_template">
@@ -201,11 +213,15 @@
 </script>
 
 <script type="text/template" id="user-profile-template">
-  <div class="photo"><img src="<%= data.picture_path %>" alt="Profil" class="img-circle" /></div>
-  <h1><%=data.nickname%></h1>
+  <div class="photo"><img src="<%= model.picture_path %>" alt="Profil" class="img-circle"/></div>
+  <h1><%= model.nickname %></h1>
   <div class="description">
   </div>
+  <% if(is_contact){ %>
+  <i class="fa fa-check fa-2x"></i>
+  <% } else { %>
   <button id="btn-add" type="button" class="btn btn-primary">Ajouter</a>
+  <% } %>
 </script>
 
 <script type="text/template" id="flashbox_template">

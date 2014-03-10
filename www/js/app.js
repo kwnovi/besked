@@ -3,27 +3,26 @@ $(function(){
 		routes: {
 			"add_contacts": "add_contacts",
 			"messages": "messages",
-			"user_profile/:user_id": "user_profile"
+			"user_profile/:user_id": "user_profile",
+			"account": "account"
 		},
 		add_contacts: function(){
-			$(".corpus-view").each(function(){
-				$(this).hide();
-			});
+			$(".corpus-view").hide();
 			$("#add-contact-view").show();
 		},
 		messages: function(){
-			$(".corpus-view").each(function(){
-				$(this).hide();
-			});
+			$(".corpus-view").hide();
 			$("#hello-view").show();
 		},
 		user_profile: function(user_id){
-			$(".corpus-view").each(function(){
-				$(this).hide();
-			});
+			$(".corpus-view").hide();
 			$("#user-profile-view").show();
 			user_profile_view = new UserProfileView({model: users_search_results.findWhere({id:user_id})});
 			user_profile_view.render();
+		},
+		account:function(){
+			$(".corpus-view").hide();
+			$("#account-view").show();
 		}
 	});
 
@@ -77,23 +76,21 @@ $(function(){
 			"click #btn-add": "add"
 		},
 		render: function(){
-			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+			this.$el.html(this.template({
+				model:this.model.attributes,
+				is_contact: contacts_collection.findWhere({id: this.model.id}) != null
+				})
+			);//le rendu
 			this.delegateEvents();
     		return this;
 		},
 		add: function(){
-				console.log('toto');
+			var that = this;
 			$.get("/besked/user/add_contact/"+this.model.id, null,function(data){
+				contacts_collection.fetch();
+				that.render();
+				alertify.success("Le contact à bien été ajouté.")
 			});
-		}
-	});
-
-	var FlashView = Backbone.View.extend({
-		el: $("#flashbox"),
-		template: _.template('<%= message %>'),
-		render: function(){
-			this.$el.html(this.template({message:this.model.message}));//le rendu
-    		return this;
 		}
 	});
 
@@ -145,8 +142,6 @@ $(function(){
 		}
 	})
 
-
-
 	var nav = new Navigation();
 	Backbone.history.start();
 	var contacts_view;
@@ -167,7 +162,6 @@ $(function(){
     users_search_results.url = function(){return 'users/nickname/' + this.search_term;};
     var users_search_results_view ;
     // CONTACT SEARCH
-
 
     searchbar_el.keyup(function(e){ 
         var search_term = $(this).attr('value').trim();
@@ -197,38 +191,32 @@ $(function(){
 				users_search_results.search_term = search_term;
 	       		users_search_results.fetch({
 	       			success: function(){
-	       				/*$("#add-contact-searchbar").autocomplete({
-	       					source: function(){ return users_search_results.getResults()}
-	       				});*/
 	       				users_search_results_view = new SearchResultsView({collection : users_search_results});
 	       				users_search_results_view.render();
 	       				nb_items = list_el.length;
 	       			}
 	       		});
         	}
-        } 
-        else { 
+        } else { 
             list_el.empty();
             index = -1;
             nb_items = 0; 
         } 
     }); 
-
 });
 
+var DOWN = 40; 
+var UP = 38; 
+var ENTER = 13; 
+var ESCAPE = 27; 
+var list_el = $("#add-contact-resultbox>ul");
+var searchbar_el = $('#add-contact-searchbar');
+var index = -1;
+var nb_items = list_el.length;
 
-    var DOWN = 40; 
-    var UP = 38; 
-    var ENTER = 13; 
-    var ESCAPE = 27; 
-    var list_el = $("#add-contact-resultbox>ul");
-    var searchbar_el = $('#add-contact-searchbar');
-    var index = -1;
-    var nb_items = list_el.length;
-
-	function change_selection(){
-		console.log(index);
-	  list_el.children().removeClass('selected');
-	  list_el.children().eq(index).addClass('selected');
-	  searchbar_el.val(list_el.children().eq(index).text().trim());
-	}
+function change_selection(){
+	console.log(index);
+  list_el.children().removeClass('selected');
+  list_el.children().eq(index).addClass('selected');
+  searchbar_el.val(list_el.children().eq(index).text().trim());
+}
