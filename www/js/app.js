@@ -4,7 +4,8 @@ $(function(){
 			"add_contacts": "add_contacts",
 			"messages": "messages",
 			"user_profile/:user_id": "user_profile",
-			"account": "account"
+			"account": "account",
+			"new_msg":"new_msg"
 		},
 		add_contacts: function(){
 			$(".corpus-view").hide();
@@ -23,6 +24,10 @@ $(function(){
 		account:function(){
 			$(".corpus-view").hide();
 			$("#account-view").show();
+		},
+		new_msg:function(){
+			$(".corpus-view").hide();
+			$("#new_topic").show();//id de la div 
 		}
 	});
 

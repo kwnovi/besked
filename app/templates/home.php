@@ -29,7 +29,7 @@
        <strong>Messages (2)</strong> 
 
         <span class="right">
-          <a rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
+          <a href="#new_msg" rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
         </span>
 
 
@@ -55,8 +55,7 @@
 
 <div id="contact-list"  >
   
-  <ul>
-  </ul>
+
 
 </div>
 
@@ -179,7 +178,7 @@
       </div>
     </div>
   </div>
-  <!-- VUE AJOUTER CONTACT -->
+  <!-- VUE CONTACT -->
   <div class="corpus-view" id="user-profile-view" style="display: none">
   </div>
     <!-- VUE ACCOUNT -->
@@ -198,6 +197,25 @@
       <button class="btn btn-primary">Submit</button>
     </form>
   </div>
+
+  <!-- VUE NEW TOPIC -->
+<div class="corpus-view" id="new_topic" style="display: none">
+     <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
+    <div class="description">
+      <input id="add-contact-searchbar" type="text" class="form-control nouveau_contact" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
+      <div id="add-contact-resultbox">
+        <ul></ul>
+      </div>
+    </div>
+
+<div id="chatbar">
+
+  <input type="text"  id="chat"class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
+
+</div>
+
+</div>
+
 </div>
 
 <script type="text/template" id="contact_template">
