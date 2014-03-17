@@ -155,7 +155,7 @@ $(function(){
 	});
 
 	var SearchResultsView = Backbone.View.extend({
-		el: "",// point d'attache dans le dom 
+		el: "#add-contact-resultbox>ul",// point d'attache dans le dom 
 
 		initialize: function() {
 		    //this.listenTo(this.collection, "change", this.render);
@@ -172,7 +172,6 @@ $(function(){
 		render: function(){
 			var that = this;
 		    this.$el.empty();
-		    console.debug(this.link)
 			_(this._userViews).each(function(userView) {
 			    $(that.el).append(userView.render().el);
 			});
@@ -181,7 +180,7 @@ $(function(){
 
 
 	var SearchResultsViewAdd = Backbone.View.extend({
-		el: "",// point d'attache dans le dom 
+		el: "#add-contact-new-msg-resultbox>ul",// point d'attache dans le dom 
 
 		initialize: function() {
 		    //this.listenTo(this.collection, "change", this.render);
@@ -198,7 +197,6 @@ $(function(){
 		render: function(){
 			var that = this;
 		    this.$el.empty();
-		    console.debug(this.link)
 			_(this._userViews).each(function(userView) {
 			    $(that.el).append(userView.render().el);
 			});
@@ -244,9 +242,9 @@ $(function(){
         var search_term = $(this).attr('value').trim();
         if( search_term != ''){
         	if ($(this).attr('id') == 'add-contact') {
-        		list_el = $("#add-contact-resultbox");
+        		list_el = $("#add-contact-resultbox ul");
         	} else {
-        		list_el = $("#add-contact-new-msg-resultbox");
+        		list_el = $("#add-contact-new-msg-resultbox ul");
         	}
 
         	if(e.keyCode == UP){
@@ -275,7 +273,7 @@ $(function(){
         			users_search_results.search_term = search_term;
 	       			users_search_results.fetch({
 		       			success: function(){
-		       				users_search_results_view = new SearchResultsView({collection : users_search_results, el: list_el});
+		       				users_search_results_view = new SearchResultsView({collection : users_search_results});
 		       				users_search_results_view.render();
 		       				nb_items = list_el.length;
 		       			}
@@ -284,8 +282,7 @@ $(function(){
         			var resultat = contacts_collection.where({nickname:search_term});
         			if(resultat.length > 0){
 	        			var toto = new UserCollection(resultat);
-	        			console.debug(toto)
-						users_search_results_view = new SearchResultsViewAdd({collection : toto, el: list_el});
+						users_search_results_view = new SearchResultsViewAdd({collection : toto});
 			       		users_search_results_view.render();
 			       		nb_items = list_el.length;
 			       	}
@@ -294,6 +291,7 @@ $(function(){
         	}
         } else { 
             list_el.empty();
+            console.debug(list_el)
             index = -1;
             nb_items = 0; 
         } 
@@ -304,13 +302,12 @@ var DOWN = 40;
 var UP = 38; 
 var ENTER = 13; 
 var ESCAPE = 27; 
-var list_el = $(".searchbar-resultbox>ul");
+var list_el = $(".searchbar-resultbox");
 var searchbar_el = $('.searchbar');
 var index = -1;
 var nb_items = list_el.length;
 
 function change_selection(){
-	console.log(index);
   list_el.children().removeClass('selected');
   list_el.children().eq(index).addClass('selected');
   searchbar_el.val(list_el.children().eq(index).text().trim());
