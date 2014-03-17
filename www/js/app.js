@@ -33,7 +33,14 @@ $(function(){
 
 	var UserModel = Backbone.Model.extend({});
 
-	//var user = new UserModel(USER_DATA);
+
+	// 
+	// 
+	// 
+	// COLLECTION 
+	// 
+	// 
+	// 
 
 	var UserCollection = Backbone.Collection.extend({//Collection = ensemble de modèle
   		model: UserModel,
@@ -46,6 +53,15 @@ $(function(){
   			return result;
   		}
 	});
+
+
+	// 
+	// 
+	// 
+	// VIEW
+	// 
+	// 
+	// 
 
 	var UserContactView = Backbone.View.extend({
 		tagName: "li",
@@ -73,6 +89,21 @@ $(function(){
     		return this;
 		}
 	});
+
+	var UserSearchViewAdd = Backbone.View.extend({
+		tagName: "li",
+		attributes:{class:"AttributeContact"},
+		template: _.template("<%=data.nickname%>"),
+		initialize: function(options) {
+			this.model = options.model;
+		    this.listenTo(this.model, "change", this.render);
+		},
+		render: function(){
+			this.$el.html(this.template({data:this.model.attributes}));//le rendu
+    		return this;
+		}
+	});
+
 
 	var UserProfileView = Backbone.View.extend({
 		el: $("#user-profile-view"),
@@ -141,15 +172,54 @@ $(function(){
 		render: function(){
 			var that = this;
 		    this.$el.empty();
-		    console.debug(this)
+		    console.debug(this.link)
 			_(this._userViews).each(function(userView) {
 			    $(that.el).append(userView.render().el);
 			});
 		}
-	})
+	});
+
+
+	var SearchResultsViewAdd = Backbone.View.extend({
+		el: "",// point d'attache dans le dom 
+
+		initialize: function() {
+		    //this.listenTo(this.collection, "change", this.render);
+		    var that = this;
+		    this._userViews = []; 
+		    this.collection.each(function(user) {
+		    	// rajout d'un element dans le tableau
+		      that._userViews.push(new UserSearchViewAdd({ 
+		        model: user,
+		      }));
+		    });
+		},
+
+		render: function(){
+			var that = this;
+		    this.$el.empty();
+		    console.debug(this.link)
+			_(this._userViews).each(function(userView) {
+			    $(that.el).append(userView.render().el);
+			});
+		}
+	});
+
+
+
+	// 
+	// 
+	// 
+	// APP, DECLARATIONS
+	// 
+	// 
+	// 
+
+
 
 	var nav = new Navigation();
 	Backbone.history.start();
+	
 	var contacts_view;
 	var contacts_collection = new UserCollection()
 	contacts_collection.url = "/besked/user/contacts";
@@ -215,7 +285,7 @@ $(function(){
         			if(resultat.length > 0){
 	        			var toto = new UserCollection(resultat);
 	        			console.debug(toto)
-						users_search_results_view = new SearchResultsView({collection : toto, el: list_el});
+						users_search_results_view = new SearchResultsViewAdd({collection : toto, el: list_el});
 			       		users_search_results_view.render();
 			       		nb_items = list_el.length;
 			       	}

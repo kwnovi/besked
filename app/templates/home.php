@@ -7,7 +7,7 @@
     </a>
   </h5> 
   <h5>
-    <a href ="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact">
+    <a href ="#" rel="tooltip" data-original-title="Liste des contacts">
      <i class="fa fa-bars"></i> 
     </a>
   </h5> 
@@ -29,6 +29,7 @@
        <strong>Messages (2)</strong> 
 
         <span class="right">
+          <a href="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact"><i class="fa fa-plus"></i></a>
           <a href="#new_msg" rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
         </span>
 
@@ -229,6 +230,7 @@
 <script type="text/template" id="search_result_template">
   <a href="#user_profile/<%=data.id%>"><%=data.nickname%></a>
 </script>
+
 
 <script type="text/template" id="user-profile-template">
   <div class="photo"><img src="<%= model.picture_path %>" alt="Profil" class="img-circle"/></div>
