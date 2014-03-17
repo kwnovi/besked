@@ -94,6 +94,9 @@ $(function(){
 		tagName: "li",
 		attributes:{class:"AttributeContact"},
 		template: _.template("<%=data.nickname%>"),
+		events:{
+			"click .AttributeContact": "add"
+		},
 		initialize: function(options) {
 			this.model = options.model;
 		    this.listenTo(this.model, "change", this.render);
@@ -101,6 +104,11 @@ $(function(){
 		render: function(){
 			this.$el.html(this.template({data:this.model.attributes}));//le rendu
     		return this;
+		},
+		add: function(){
+			if($("#recipients-container").find('button[data-id='+$(this).attr('data-id')+']').length == 0){
+				$("#recipients-container").append('<button class="btn btn-default remove-recipient" type="button" data-id="'+$(this).attr('data-id')+'">'+$(this).html()+'<span class="glyphicon glyphicon-remove "></span></button>')
+			}
 		}
 	});
 
@@ -298,6 +306,11 @@ $(function(){
             nb_items = 0; 
         } 
     }); 
+
+	$('#recipients-container').delegate('.remove-recipient', 'click', function(){
+		$(this).remove();
+	})
+
 });
 
 var DOWN = 40; 

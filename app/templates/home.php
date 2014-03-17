@@ -201,8 +201,8 @@
 
   <!-- VUE NEW TOPIC -->
 <div class="corpus-view" id="new_topic" style="display: none">
-     <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
     <div class="description">
+      <div id="recipients-container"></div>
       <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
         <ul></ul>
