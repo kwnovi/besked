@@ -171,7 +171,7 @@
   </div>
   <!-- VUE AJOUTER CONTACT -->
   <div class="corpus-view" id="add-contact-view" style="display: none">
-    <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
+    
     <div class="description">
       <input id="add-contact" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-resultbox" class="searchbar-resultbox">
@@ -201,19 +201,20 @@
 
   <!-- VUE NEW TOPIC -->
 <div class="corpus-view" id="new_topic" style="display: none">
-    <div class="description">
-      <div id="recipients-container"></div>
+      <h3>Contacts</h3>
       <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
         <ul></ul>
       </div>
-    </div>
+      <div id="recipients-container"></div>
+      <hr>
+      <!-- rajouter input pour le title, submit  -->
+      <input  type="text" class="form-control" placeholder="Titre de la discussion"/>
+      <textarea class="form-textarea" rows="6"></textarea>
+      <br/>
 
-<div id="chatbar">
+     <button type="button" class="btn btn-primary btn-sm">Lancer la discussion</button>
 
-  <input type="text"  id="chat"class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
-
-</div>
 
 </div>
 
