@@ -202,7 +202,8 @@
   <!-- VUE NEW TOPIC -->
 <div class="corpus-view" id="new_topic" style="display: none">
   <!-- rajouter input pour le title, submit  -->
-       <input  type="text" class="form-control" placeholder="Titre de la discussion"/>
+ 
+       <input  type="text" class="form-control" id="titleDiscussion"placeholder="Titre de la discussion"/>
       
       <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
@@ -210,15 +211,16 @@
       </div>
    
 
-      <textarea class="form-textarea" rows="6"></textarea>
+      <textarea class="form-textarea" id="MSGGroup" rows="6"></textarea>
       <br/>
 
-     <button type="button" class="btn btn-primary btn-sm">Lancer la discussion</button>
+     <button type="button" class="btn btn-primary btn-sm" id="newTopic">Lancer la discussion</button>
 
 
 </div>
 
 </div>
+
 
 <script type="text/template" id="contact_template">
   <% if(data.connected){ %> 
