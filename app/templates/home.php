@@ -54,9 +54,9 @@
 <div class="content-area" id="B2">
 
 <div id="contact-list"  >
-  
-
-
+  <ul>
+    
+  </ul>  
 </div>
 
 </div>
@@ -172,8 +172,8 @@
   <div class="corpus-view" id="add-contact-view" style="display: none">
     <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
     <div class="description">
-      <input id="add-contact-searchbar" type="text" class="form-control nouveau_contact" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
-      <div id="add-contact-resultbox">
+      <input id="add-contact" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
+      <div id="add-contact-resultbox" class="searchbar-resultbox">
         <ul></ul>
       </div>
     </div>
@@ -202,8 +202,8 @@
 <div class="corpus-view" id="new_topic" style="display: none">
      <div class="photo"><img src="www/img/default.png" alt="Profil" class="img-circle" /></div>
     <div class="description">
-      <input id="add-contact-searchbar" type="text" class="form-control nouveau_contact" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
-      <div id="add-contact-resultbox">
+      <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
+      <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
         <ul></ul>
       </div>
     </div>

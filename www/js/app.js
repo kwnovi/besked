@@ -124,7 +124,7 @@ $(function(){
 	});
 
 	var SearchResultsView = Backbone.View.extend({
-		el: $("#add-contact-resultbox ul"),// point d'attache dans le dom 
+		el: "",// point d'attache dans le dom 
 
 		initialize: function() {
 		    //this.listenTo(this.collection, "change", this.render);
@@ -141,6 +141,7 @@ $(function(){
 		render: function(){
 			var that = this;
 		    this.$el.empty();
+		    console.debug(this)
 			_(this._userViews).each(function(userView) {
 			    $(that.el).append(userView.render().el);
 			});
@@ -166,11 +167,18 @@ $(function(){
     var users_search_results = new UserCollection();
     users_search_results.url = function(){return 'users/nickname/' + this.search_term;};
     var users_search_results_view ;
+    var collection;
     // CONTACT SEARCH
 
     searchbar_el.keyup(function(e){ 
         var search_term = $(this).attr('value').trim();
         if( search_term != ''){
+        	if ($(this).attr('id') == 'add-contact') {
+        		list_el = $("#add-contact-resultbox");
+        	} else {
+        		list_el = $("#add-contact-new-msg-resultbox");
+        	}
+
         	if(e.keyCode == UP){
         		if(index <= 0){
 			        index = nb_items-1;
@@ -193,14 +201,26 @@ $(function(){
         		list_el.empty();
         		users_search_results.reset();
         	} else {
-				users_search_results.search_term = search_term;
-	       		users_search_results.fetch({
-	       			success: function(){
-	       				users_search_results_view = new SearchResultsView({collection : users_search_results});
-	       				users_search_results_view.render();
-	       				nb_items = list_el.length;
-	       			}
-	       		});
+        		if ($(this).attr('id') == 'add-contact') {
+        			users_search_results.search_term = search_term;
+	       			users_search_results.fetch({
+		       			success: function(){
+		       				users_search_results_view = new SearchResultsView({collection : users_search_results, el: list_el});
+		       				users_search_results_view.render();
+		       				nb_items = list_el.length;
+		       			}
+	       			});
+        		} else {
+        			var resultat = contacts_collection.where({nickname:search_term});
+        			if(resultat.length > 0){
+	        			var toto = new UserCollection(resultat);
+	        			console.debug(toto)
+						users_search_results_view = new SearchResultsView({collection : toto, el: list_el});
+			       		users_search_results_view.render();
+			       		nb_items = list_el.length;
+			       	}
+        		}
+				
         	}
         } else { 
             list_el.empty();
@@ -214,8 +234,8 @@ var DOWN = 40;
 var UP = 38; 
 var ENTER = 13; 
 var ESCAPE = 27; 
-var list_el = $("#add-contact-resultbox>ul");
-var searchbar_el = $('#add-contact-searchbar');
+var list_el = $(".searchbar-resultbox>ul");
+var searchbar_el = $('.searchbar');
 var index = -1;
 var nb_items = list_el.length;
 
