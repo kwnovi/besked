@@ -116,6 +116,15 @@ $(function(){
 		$(this).remove();
 	})
 
+	$("#newTopic").click(function() {
+       $.ajax({
+                type: "POST",
+                url: "discussions/new",
+                data: { title: $("#titleDiscussion").val(), message: $("#MSGGroup").val()  }
+              }).done(function( data ) {
+                alertify.success(data.message)
+              }); 
+    })
 });
 
 var DOWN = 40; 

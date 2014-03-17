@@ -201,24 +201,38 @@
 
   <!-- VUE NEW TOPIC -->
 <div class="corpus-view" id="new_topic" style="display: none">
+<<<<<<< HEAD
       <h3>Contacts</h3>
+=======
+  <!-- rajouter input pour le title, submit  -->
+ 
+       <input  type="text" class="form-control" id="titleDiscussion"placeholder="Titre de la discussion"/>
+      
+>>>>>>> a0a8cbbf6b995f2ba1e2c0a0077dd3456f120d01
       <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
         <ul></ul>
       </div>
+<<<<<<< HEAD
       <div id="recipients-container"></div>
       <hr>
       <!-- rajouter input pour le title, submit  -->
       <input  type="text" class="form-control" placeholder="Titre de la discussion"/>
       <textarea class="form-textarea" rows="6"></textarea>
+=======
+   
+
+      <textarea class="form-textarea" id="MSGGroup" rows="6"></textarea>
+>>>>>>> a0a8cbbf6b995f2ba1e2c0a0077dd3456f120d01
       <br/>
 
-     <button type="button" class="btn btn-primary btn-sm">Lancer la discussion</button>
+     <button type="button" class="btn btn-primary btn-sm" id="newTopic">Lancer la discussion</button>
 
 
 </div>
 
 </div>
+
 
 <script type="text/template" id="contact_template">
   <% if(data.connected){ %> 
