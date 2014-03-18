@@ -199,6 +199,10 @@ margin-bottom: 30px;
   overflow-y: auto;
 }
 
+.topic > ul {
+  list-style: none;
+}
+
 
 #chat{
 height :40px !important;

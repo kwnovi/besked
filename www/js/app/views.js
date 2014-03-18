@@ -68,9 +68,12 @@ var UserProfileView = Backbone.View.extend({
 	add: function(){
 		var that = this;
 		$.get("/besked/user/add_contact/"+this.model.id, null,function(data){
-			contacts_collection.fetch();
-			that.render();
-			alertify.success("Le contact à bien été ajouté.")
+			contacts_collection.fetch({
+				success: function(){
+					that.render();			
+				}
+			});
+			alertify.success("Le contact a bien été ajouté.")
 		});
 	}
 });
@@ -147,3 +150,51 @@ var SearchResultsViewAdd = Backbone.View.extend({
 		});
 	}
 });
+
+var DiscussionHeadView = Backbone.View.extend({
+	tagName: 'li',
+	template : _.template($("#discussion-head-template").html()),
+	events:{
+		"click .btn-del": "del"
+	},
+	render: function(){
+		this.$el.html(this.template({model:this.model.attributes}));//le rendu
+		this.delegateEvents();
+		return this;
+	},
+	del: function(){
+		var that = this;
+		$.get("discussion/delete/"+this.model.id, null,function(data){
+			discussions_collection.fetch({
+				success: function(){
+					that.render();
+				}
+			});
+			alertify.success("La discussion a bien été supprimé.");
+		});
+	}
+})
+
+var DiscussionsView = Backbone.View.extend({
+	el: "#discussions-head-container>ul",
+
+	initialize: function() {
+	    var that = this;
+	    console.debug(this.el);
+	    this._discussionViews = []; 
+	    this.collection.each(function(discussion) {
+	    	// rajout d'un element dans le tableau
+	      that._discussionViews.push(new DiscussionHeadView({ 
+	        model: discussion,
+	      }));
+	    });
+	},
+
+	render: function(){
+		var that = this;
+	    this.$el.empty();
+		_(this._discussionViews).each(function(discussionView) {
+		    $(that.el).append(discussionView.render().el);
+		});
+	}
+})

@@ -23,144 +23,114 @@
   </h5> 
 </nav>
 <aside id="A2">
-      
-      <div class="menu" id="B1">
-
-       <strong>Messages (2)</strong> 
-
-        <span class="right">
-          <a href="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact"><i class="fa fa-plus"></i></a>
-          <a href="#new_msg" rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
-        </span>
-
-
-        <input type="text" class="form-control" placeholder="Rechercher ..." />
-        
-        <br>
-        <div class="topic">
-          <p>
-        # <a href="">Projet </a><span class="next"><a  rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span><br/>
-        # <a href="">Semaine ski </a><span class="next"><a rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span></i> <br/>
-        # <a href="">Campagne BDE</a><span class="next"><a  rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span><br/>
-        # <a href="">Vendredi soir</a><span class="next"><a rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span></i><br/>
-        </p>
-
-        </div>
-        
-        <hr>
-      </div>
-
-      <!-- Fin de la première partie du menu  -->
-
-<div class="content-area" id="B2">
-
-<div id="contact-list"  >
-  <ul>
-    
-  </ul>  
-</div>
-
-</div>
-
-
+  <div class="menu" id="B1">
+   <strong>Messages (2)</strong> 
+    <span class="right">
+      <a href="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact"><i class="fa fa-plus"></i></a>
+      <a href="#new_msg" rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
+    </span>
+    <input type="text" class="form-control" placeholder="Rechercher ..." />
+    <br>
+    <div id="discussions-head-container" class="topic">
+      <ul></ul>
+    </div>
+    <hr>
+  </div>
+  <!-- Fin de la première partie du menu  -->
+  <div class="content-area" id="B2">
+    <div id="contact-list"  >
+      <ul></ul>  
+    </div>
+  </div>
 </aside>
-
-
 
 <aside id="A4">
-      
-<div class="content-area" id="B4">
-<div id="msg-list">
-      <a class="corps" href="#">
-        <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+  <div class="content-area" id="B4">
+    <div id="msg-list">
+          <a class="corps" href="#">
+            <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
 
-      <a class="corps" href="#">
-        <h3 class="selected">  Calvin Peterson <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
-        
-     
-      <a class="corps" href="#">
-        <h3 class="selected"> Burnell Corbeil<span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+          <a class="corps" href="#">
+            <h3 class="selected">  Calvin Peterson <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
+            
+         
+          <a class="corps" href="#">
+            <h3 class="selected"> Burnell Corbeil<span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
 
-      <a class="corps" href="#">
-        <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+          <a class="corps" href="#">
+            <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
 
-      <a class="corps" href="#">
-        <h3>Luce Déziel <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+          <a class="corps" href="#">
+            <h3>Luce Déziel <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
 
-      <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+          <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
-            <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+                <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
-              <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+                  <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
-              <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+                  <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
-              <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
+                  <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
 
-              <a class="corps" href="#">
-        <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-       
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-        <hr>
-        </a>
-</div>
-
-
-
-</div>
-
-
+                  <a class="corps" href="#">
+            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
+           
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
+            <hr>
+            </a>
+    </div>
+  </div>
 </aside>
-
 
 <div class="corpus">
   <!-- VUE A LA CONNEXION -->
@@ -200,36 +170,20 @@
   </div>
 
   <!-- VUE NEW TOPIC -->
-<div class="corpus-view" id="new_topic" style="display: none">
-<<<<<<< HEAD
-      <h3>Contacts</h3>
-=======
-  <!-- rajouter input pour le title, submit  -->
- 
-       <input  type="text" class="form-control" id="titleDiscussion"placeholder="Titre de la discussion"/>
-      
->>>>>>> a0a8cbbf6b995f2ba1e2c0a0077dd3456f120d01
-      <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
-      <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
-        <ul></ul>
-      </div>
-<<<<<<< HEAD
-      <div id="recipients-container"></div>
-      <hr>
-      <!-- rajouter input pour le title, submit  -->
-      <input  type="text" class="form-control" placeholder="Titre de la discussion"/>
-      <textarea class="form-textarea" rows="6"></textarea>
-=======
-   
-
-      <textarea class="form-textarea" id="MSGGroup" rows="6"></textarea>
->>>>>>> a0a8cbbf6b995f2ba1e2c0a0077dd3456f120d01
-      <br/>
-
-     <button type="button" class="btn btn-primary btn-sm" id="newTopic">Lancer la discussion</button>
-
-
-</div>
+  <div class="corpus-view" id="new_topic" style="display: none">
+    <h3>Contacts</h3>
+    <div id="recipients-container"></div>
+    <input id="new-contact-msg" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
+    <div id="add-contact-new-msg-resultbox" class="searchbar-resultbox">
+      <ul></ul>
+    </div>
+    <hr>
+    <!-- rajouter input pour le title, submit  -->
+    <input  id="titleDiscussion" type="text" class="form-control" placeholder="Titre de la discussion"/>
+    <textarea class="form-textarea" id="MSGGroup" rows="6"></textarea>
+    <br/>
+    <button type="button" class="btn btn-primary btn-sm" id="newTopic">Lancer la discussion</button>
+  </div>
 
 </div>
 
@@ -259,6 +213,7 @@
   <% } %>
 </script>
 
-<script type="text/template" id="flashbox_template">
-  
+<script type="text/template" id="discussion-head-template">
+  #<a href="#discussion/<%= model.id %>"> <%= model.title %></a><span class="next"><a class="btn-del" rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span>  
 </script>
+

@@ -4,6 +4,7 @@ require_once(__APP_DIR__.'discussions'._SL_.'model.php');
 
 function get_user_all_discussions (){
 	$discussions = Discussion::get_user_all_discussions($_SESSION['userID']);
+	//var_dump($discussions);
 	header('HTTP/1.0 200');
     header('Content-Type: application/json');
     echo json_encode($discussions);

@@ -36,7 +36,6 @@ $(function(){
 	
 	var contacts_view;
 	var contacts_collection = new UserCollection()
-	contacts_collection.url = "/besked/user/contacts";
     contacts_collection.fetch({
     	success: function(){
     		contacts_view = new ContactsView({collection: contacts_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
@@ -47,6 +46,17 @@ $(function(){
     	}
     });
 
+    var discussions_collection = new DiscussionCollection()
+	discussions_collection.fetch({
+    	success: function(){
+    		discussions_view = new DiscussionsView({collection: discussions_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
+    		discussions_view.render();
+    	},
+    	error: function(){
+    		console.log("error");
+    	}
+    });
+    
     // à mettre dans le router
     var users_search_results = new UserCollection();
     users_search_results.url = function(){return 'users/nickname/' + this.search_term;};
