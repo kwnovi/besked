@@ -14,3 +14,7 @@ var DiscussionCollection = Backbone.Collection.extend({//Collection = ensemble d
 		model: DiscussionModel,
 		url: "discussions/user/all"
 })
+
+var MessageCollection = Backbone.Collection.extend({//Collection = ensemble de modèle
+		model: MessageModel
+})

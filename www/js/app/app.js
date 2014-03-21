@@ -1,3 +1,32 @@
+/**********************************
+ *  GLOBAL SCOPE
+ **********************************/
+
+/* COLLECTIONS */
+var contacts_collection = new UserCollection(init_contacts_data);
+var discussions_collection = new DiscussionCollection(init_discussions_data);
+var latest_messages_collection = new MessageCollection(init_messages_data);
+
+/* AUTOCOMPLETE UTILITIES */
+var DOWN = 40; 
+var UP = 38; 
+var ENTER = 13; 
+var ESCAPE = 27; 
+var list_el = $(".searchbar-resultbox");
+var searchbar_el = $('.searchbar');
+var index = -1;
+var nb_items = list_el.length;
+
+function change_selection(){
+  list_el.children().removeClass('selected');
+  list_el.children().eq(index).addClass('selected');
+  searchbar_el.val(list_el.children().eq(index).text().trim());
+}
+
+
+/**********************************
+ *  APPLICATION
+ **********************************/
 $(function(){
 	var Navigation = Backbone.Router.extend({
 		routes: {
@@ -34,29 +63,17 @@ $(function(){
 	var nav = new Navigation();
 	Backbone.history.start();
 	
-	var contacts_view;
-	var contacts_collection = new UserCollection()
-    contacts_collection.fetch({
-    	success: function(){
-    		contacts_view = new ContactsView({collection: contacts_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
-    		contacts_view.render();
-    	},
-    	error: function(){
-    		console.log("error");
-    	}
-    });
+	var contacts_view = new ContactsView({collection: contacts_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
+    contacts_view.render();
 
-    var discussions_collection = new DiscussionCollection()
-	discussions_collection.fetch({
-    	success: function(){
-    		discussions_view = new DiscussionsView({collection: discussions_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
-    		discussions_view.render();
-    	},
-    	error: function(){
-    		console.log("error");
-    	}
-    });
+    var discussions_view = new DiscussionsView({collection: discussions_collection});// this.collection <- ContactsCollection ref 29  (instancié en 29)
+    discussions_view.render();
     
+    var latest_messages_view = new LatestMessagesView({
+    	collection:latest_messages_collection
+    });
+    latest_messages_view.render();
+
     // à mettre dans le router
     var users_search_results = new UserCollection();
     users_search_results.url = function(){return 'users/nickname/' + this.search_term;};
@@ -137,17 +154,4 @@ $(function(){
     })
 });
 
-var DOWN = 40; 
-var UP = 38; 
-var ENTER = 13; 
-var ESCAPE = 27; 
-var list_el = $(".searchbar-resultbox");
-var searchbar_el = $('.searchbar');
-var index = -1;
-var nb_items = list_el.length;
 
-function change_selection(){
-  list_el.children().removeClass('selected');
-  list_el.children().eq(index).addClass('selected');
-  searchbar_el.val(list_el.children().eq(index).text().trim());
-}

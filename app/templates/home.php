@@ -44,90 +44,11 @@
   </div>
 </aside>
 
+<!-- Derniers messages -->
 <aside id="A4">
   <div class="content-area" id="B4">
     <div id="msg-list">
-          <a class="corps" href="#">
-            <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-
-          <a class="corps" href="#">
-            <h3 class="selected">  Calvin Peterson <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-            
-         
-          <a class="corps" href="#">
-            <h3 class="selected"> Burnell Corbeil<span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-
-          <a class="corps" href="#">
-            <h3> Rachelle Sanschagrin <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-
-          <a class="corps" href="#">
-            <h3>Luce Déziel <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-
-          <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-                <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-                  <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-                  <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-                  <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
-
-                  <a class="corps" href="#">
-            <h3>Christine Melanson  <span class="next"><i class="fa fa-angle-double-right"></i></span></h3>
-           
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus s
-            <hr>
-            </a>
+      <ul></ul>
     </div>
   </div>
 </aside>
@@ -217,3 +138,22 @@
   #<a href="#discussion/<%= model.id %>"> <%= model.title %></a><span class="next"><a class="btn-del" rel="tooltip" data-original-title="Supprimer"><i class="fa fa-times"></i></a></span>  
 </script>
 
+<script type="text/template" id="latest-message-template">
+<a class="corps" href="#discussion/<%= message.discussion_id %>">
+  <h3 class="<%= (contact.get("connected"))?"selected":"" %>">
+    <%= contact.get("nickname") %>
+    <span class="next">
+      <i class="fa fa-angle-double-right"></i>
+    </span>
+  </h3>
+  <%= message.get("content").substr(0,100) %>
+  <hr>
+</a>
+</script>
+
+<script>
+  var init_user_data = <?php echo $user; ?>;
+  var init_contacts_data = <?php echo $contacts; ?>;
+  var init_discussions_data = <?php echo $discussions; ?>;
+  var init_messages_data = <?php echo $messages; ?>;
+</script>

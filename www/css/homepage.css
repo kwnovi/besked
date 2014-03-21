@@ -111,6 +111,10 @@ height: 25px !important;
 margin-top:  15px !important;
   }
 
+#msg-list >ul{
+  list-style: none;
+}
+
   .selected {
 
     color: #3498db !important;

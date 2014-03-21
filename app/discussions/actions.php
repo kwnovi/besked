@@ -4,7 +4,6 @@ require_once(__APP_DIR__.'discussions'._SL_.'model.php');
 
 function get_user_all_discussions (){
 	$discussions = Discussion::get_user_all_discussions($_SESSION['userID']);
-	//var_dump($discussions);
 	header('HTTP/1.0 200');
     header('Content-Type: application/json');
     echo json_encode($discussions);
@@ -12,11 +11,9 @@ function get_user_all_discussions (){
 
 function create_new_discussion() {
 	
-var_dump($_POST);
 
 
-	header('HTTP/1.0 200');
-    header('Content-Type: application/json');
+
     echo json_encode(array("message" => "La discussion a été crée"));
 
 

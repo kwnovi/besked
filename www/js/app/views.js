@@ -180,7 +180,6 @@ var DiscussionsView = Backbone.View.extend({
 
 	initialize: function() {
 	    var that = this;
-	    console.debug(this.el);
 	    this._discussionViews = []; 
 	    this.collection.each(function(discussion) {
 	    	// rajout d'un element dans le tableau
@@ -197,4 +196,48 @@ var DiscussionsView = Backbone.View.extend({
 		    $(that.el).append(discussionView.render().el);
 		});
 	}
-})
+});
+
+var LatestMessageView = Backbone.View.extend({
+	tagName: 'li',
+	template: _.template($("#latest-message-template").html()),
+	events:{
+		"click #btn-add": "open"
+	},
+	render: function(){
+		this.$el.html(this.template({
+			message:this.model.message,
+			contact: this.model.contact
+			})
+		);//le rendu
+		return this;
+	},
+	open:function(){
+
+	}
+});
+
+var LatestMessagesView = Backbone.View.extend({
+	el: "#msg-list>ul",
+
+	initialize: function() {
+	    var that = this;
+	    this._messageViews = []; 
+	    this.collection.each(function(_message) {
+	      that._messageViews.push(new LatestMessageView({ 
+	        model: { 
+	        	"message": _message,
+	        	"contact": contacts_collection.findWhere({id:_message.get("user_id")})
+	        }
+	      }));
+	    });
+	},
+
+	render: function(){
+		var that = this;
+	    this.$el.empty();
+		_(this._messageViews).each(function(messageView) {
+		    $(that.el).append(messageView.render().el);
+		});
+	}
+});
