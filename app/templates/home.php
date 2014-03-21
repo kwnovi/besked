@@ -24,12 +24,13 @@
 </nav>
 <aside id="A2">
   <div class="menu" id="B1">
-   <strong>Messages (2)</strong> 
+   <strong>Messages</strong> 
     <span class="right">
       <a href="#add_contacts" rel="tooltip" data-original-title="Ajouter un contact"><i class="fa fa-plus"></i></a>
       <a href="#new_msg" rel="tooltip" data-original-title="Créer un nouveau message"><i class="fa fa-file-text-o"></i> </a>
     </span>
-    <input type="text" class="form-control" placeholder="Rechercher ..." />
+    <!-- <input type="text" class="form-control" placeholder="Rechercher ..." /> -->
+    <br>
     <br>
     <div id="discussions-head-container" class="topic">
       <ul></ul>
@@ -60,6 +61,7 @@
     <p><strong>Meaningful but nonetheless useless shit here ..</strong>  </p>
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
   </div>
+
   <!-- VUE AJOUTER CONTACT -->
   <div class="corpus-view" id="add-contact-view" style="display: none">
     
@@ -70,9 +72,11 @@
       </div>
     </div>
   </div>
+
   <!-- VUE CONTACT -->
   <div class="corpus-view" id="user-profile-view" style="display: none">
   </div>
+
     <!-- VUE ACCOUNT -->
   <div class="corpus-view" id="account-view" style="display: none">
     <form action="/user/edit" id="account-form" enctype="multipart/form-data" method="post" style="display: block">
@@ -106,6 +110,10 @@
     <button type="button" class="btn btn-primary btn-sm" id="newTopic">Lancer la discussion</button>
   </div>
 
+  <!-- VUE CHAT -->
+  <div class="corpus-view" id="chat-view" style="display: none">
+
+  </div>
 </div>
 
 
@@ -139,7 +147,7 @@
 </script>
 
 <script type="text/template" id="latest-message-template">
-<a class="corps" href="#discussion/<%= message.discussion_id %>">
+<a class="corps" href="#discussion/<%= message.get("discussion_id") %>">
   <h3 class="<%= (contact.get("connected"))?"selected":"" %>">
     <%= contact.get("nickname") %>
     <span class="next">

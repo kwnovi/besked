@@ -34,7 +34,8 @@ $(function(){
 			"messages": "messages",
 			"user_profile/:user_id": "user_profile",
 			"account": "account",
-			"new_msg":"new_msg"
+			"new_msg":"new_msg",
+			"discussion/:discussion_id": "chat"
 		},
 		add_contacts: function(){
 			$(".corpus-view").hide();
@@ -56,8 +57,13 @@ $(function(){
 		},
 		new_msg:function(){
 			$(".corpus-view").hide();
-			$("#new_topic").show();//id de la div 
+			$("#new_topic").show(); 
+		},
+		chat: function(){
+			$(".corpus-view").hide();
+			$("#chat-view").show();
 		}
+
 	});
 
 	var nav = new Navigation();

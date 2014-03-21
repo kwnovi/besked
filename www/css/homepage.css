@@ -113,6 +113,7 @@ margin-top:  15px !important;
 
 #msg-list >ul{
   list-style: none;
+  padding: 0;
 }
 
   .selected {
@@ -205,6 +206,7 @@ margin-bottom: 30px;
 
 .topic > ul {
   list-style: none;
+  padding: 0;
 }
 
 

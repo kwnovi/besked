@@ -1,4 +1,18 @@
 <?php
+/**
+ * MODEL
+ *
+ * Classe abstraite permettant de manipuler les données.
+ * But principal pour l'instant factoriser le plus de code 
+ * possible.
+ *
+ * Licensed under The WTFPL License
+ *
+ * @license http://www.wtfpl.net/txt/copying/
+ * @author Lucien Varaca <k.wnovi@gmail.com>
+ * @author Quentin Le Bour <q.lebour@gmail.com>
+ */
+
 require("database.php");
 
 abstract class Model{
@@ -15,21 +29,15 @@ abstract class Model{
 	
 	// on retourne un nouvel objet ou on le charge dans l'instance courante ?
 	public function find($id){
-		//$fields = implode(',', $this->get_fields_names());
 		$fields = $this->get_fields_names();
 		$table = $this::table_name;
 
 		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1", array('id' => $id));
 
-		/* Pour passer le test unitaire
-		$data = $this->execute($stmt);
-		foreach ($data as $key => $value) {
-			return static::__construct_fill_fields($value);
-		}
-		*/
 		return static::__construct_fill_fields($this->execute($stmt)[0]);
 	}
 
+	// sauvegarde plus ou moins intelligemment 
 	public function save(){
 		// si c'est une nouvelle instance (pas deja presente en base)
 		// on l'ajoute au lieu de sauvegarder
@@ -65,11 +73,15 @@ abstract class Model{
 				$query_string .= 'NULL,';
 			}
 		}
+		// moche
 		$query_string = rtrim($query_string,',');
 		$stmt = $this::query($query_string.')');
+		
 		$this::execute($stmt, $params);
 	}
 
+	// Toujours appeller cette méthode pour créer une requète
+	// Bind les paramètres si passés en paramètre
 	protected static function query($query_string, $params=NULL){
 		$db = Database::getConnection();
 		$stmt = $db->prepare($query_string);
@@ -83,6 +95,8 @@ abstract class Model{
 		return $stmt;
 	}
 
+	// Toujours appeller cette méthode pour exécuter une requète
+	// Bind les paramètres si passés en paramètre
 	protected static function execute($stmt, $params=NULL){
 		try {
 			if($params == NULL){
@@ -101,6 +115,7 @@ abstract class Model{
 		}
 	}
 
+	// useless
 	public static function get_by_id($id){
 		$instance = new static();
 		return $instance->find($id);
@@ -155,6 +170,7 @@ abstract class Model{
 	}
 
 	public function toJson(){
+		// TODO cleaner le json (cf my_json_encode views/home.php)
 		return json_encode($this->get_fields_values());
 	}
 }
