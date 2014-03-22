@@ -23,11 +23,25 @@ function change_selection(){
   searchbar_el.val(list_el.children().eq(index).text().trim());
 }
 
+function redimension(){
+	var height = window.innerHeight - $("#B1").outerHeight(true);
+	$("#B2").css("max-height", height + 'px');
+
+	var Theight = window.innerHeight ;
+	$("#B4").css("max-height", Theight + 'px');
+
+	var secondHeight = window.innerHeight - $("#prof").outerHeight(true) - $('#chatbar').outerHeight(true);
+	$("#conver").css("height", secondHeight + 'px');
+}
 
 /**********************************
  *  APPLICATION
  **********************************/
 $(function(){
+
+	var user_profile_view;
+	var chat_view;
+
 	var Navigation = Backbone.Router.extend({
 		routes: {
 			"add_contacts": "add_contacts",
@@ -38,7 +52,6 @@ $(function(){
 			"discussion/:discussion_id": "chat"
 		},
 		add_contacts: function(){
-			$(".corpus-view").hide();
 			$("#add-contact-view").show();
 		},
 		messages: function(){
@@ -62,8 +75,8 @@ $(function(){
 		chat: function(){
 			$(".corpus-view").hide();
 			$("#chat-view").show();
-		}
 
+		}
 	});
 
 	var nav = new Navigation();
@@ -147,7 +160,7 @@ $(function(){
 
 	$('#recipients-container').delegate('.remove-recipient', 'click', function(){
 		$(this).remove();
-	})
+	});
 
 	$("#newTopic").click(function() {
        $.ajax({
@@ -157,7 +170,18 @@ $(function(){
               }).done(function( data ) {
                 alertify.success(data.message)
               }); 
-    })
+    });
+
+	// fix taille des zone de scroll
+	redimension();
+	$( window ).resize(redimension());
+
+	//logout l'utilisateur à la sortie
+	$( window ).unload(function() {
+		$.get("/user/logout", null,function(data){
+			console.log("logout");
+		});
+	});
 });
 
 

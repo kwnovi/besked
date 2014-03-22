@@ -164,7 +164,7 @@ color:#3498db;
 .menu {
 margin-bottom: 0px;
 display:block;
-height: 160px;
+height: 120px;
 }
 
 .conversation {
@@ -231,6 +231,7 @@ display: block;
 #contact-list ul {
   list-style: none;
   text-align : none;
+  margin-bottom: 0;
 }
 
 #contact-list li {

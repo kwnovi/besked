@@ -9,12 +9,7 @@ function get_user_all_discussions (){
     echo json_encode($discussions);
 }
 
+// TODO
 function create_new_discussion() {
-	
-
-
-
     echo json_encode(array("message" => "La discussion a été crée"));
-
-
 }

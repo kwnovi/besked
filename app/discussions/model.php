@@ -26,6 +26,26 @@ class Discussion extends Model{
 		return $instance;
 	}
 
+	public static function get_participants_id($id=null){
+		$stmt = self::query("SELECT user_id
+							FROM user_discussion
+							WHERE discussion_id =:id", 
+							array(
+								'id'=> (is_null($id))?$this->get_id():$id,
+							)
+						);
+		$_result = self::execute($stmt);
+		if(count($_result) == 1){
+			return $_result[0]['user_id'];
+		} else {
+			$result = array();
+			foreach ($_result as $key => $value){
+				array_push($result, $value['user_id']);
+			}
+			return $result;
+		}
+	}
+
 	public static function get_user_all_discussions($user_id){
 		$stmt = self::query("SELECT ".self::fields_names." 
 							 FROM USER_DISCUSSION 
@@ -36,6 +56,9 @@ class Discussion extends Model{
 							)
 						);
 		$result = self::execute($stmt);
+		foreach ($result as $key => $value) {
+			$result[$key]["participants"] = static::get_participants_id($value['id']);
+		}
 		return $result;
 	}
 

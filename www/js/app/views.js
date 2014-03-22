@@ -241,3 +241,36 @@ var LatestMessagesView = Backbone.View.extend({
 		});
 	}
 });
+
+/*var MessageChatView = Backbone.View.extend({
+	tagName: 'article',
+	template: _.template($("#latest-message-template").html()),
+	events:{
+		"click #btn-add": "open"
+	},
+	render: function(){
+		this.$el.html(this.template({
+			message:this.model.message,
+			owner: this.model.owner
+			})
+		);//le rendu
+		return this;
+	}
+}*/
+
+/*var ChatView = Backbone.View.extend({
+	el: "#chat-view",
+	template: _.template($("#chat-view-template").html())
+	initialize: function() {
+
+	},
+
+	render: function(){
+		this.$el.html(this.template({
+			messages:this.model.message,
+			owner: this.model.owner
+			})
+		);//le rendu
+		return this;
+	}
+});*/

@@ -112,7 +112,7 @@
 
   <!-- VUE CHAT -->
   <div class="corpus-view" id="chat-view" style="display: none">
-
+    
   </div>
 </div>
 
@@ -157,6 +157,35 @@
   <%= message.get("content").substr(0,100) %>
   <hr>
 </a>
+</script>
+
+<script type="text/template" id="chat-view-template">
+<!-- PROFIL -->
+    <div class="profil" id="prof">
+      <div class="description">
+        <span class="titre">Rachelle Sanschagrin</span>
+        <p class="connected"><i class="fa fa-circle"></i> <strong>En ligne </strong></p>
+      </div>
+    </div>
+    <!-- MESSAGES -->
+    <div class="conversation" id="conver">
+      <article class="interlocuteur">
+        <p class="msg">
+          Définition : c’est une transformation de ressources dans le but de créer des biens et des services. Pour cela il va falloir coordonner et faire circuler des flux de création de valeurs, tout en assurant la ponctualité des rendez-vous avec le besoin client. 
+        </p>
+        <p class="datetime"><i class="fa fa-check-square-o"></i> 10:16 - 10.02.2014</p>
+      </article>
+      <article class="intervenant">
+        <p class="msg">
+       Ok, super cool ! 
+        </p>
+         <p class="datetime"><i class="fa fa-check-square-o"></i> 10:16 - 10.02.2014</p>
+      </article>
+    </div>
+    <!-- CHATBAR -->
+    <div id="chatbar">
+     <input type="text"  id="chat"class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
+    </div>
 </script>
 
 <script>

@@ -18,20 +18,3 @@ Router::get_instance()->get_route(array(
 	"#^/besked/messages/[a-zA-Z0-9/?=]#" => "messages_routes_handler",
 	"#^/besked/discussions/[a-zA-Z0-9/?=]#" => "discussions_routes_handler",
 	));
-
- 
-
-/* TEST ADD
-$user = User::create_user();
-$user->set_attr('nickname', 'jaime');
-$user->set_attr('password', 'le');
-$user->set_attr('email', 'jam@bon.fr');
-$user->set_attr('created_datetime', '2014-05-01');
-
-$user->save();
-var_dump($user);
-
-$n_user = User::get_by_id(8);
-
-var_dump($n_user);
-*/

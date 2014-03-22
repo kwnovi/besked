@@ -3,29 +3,41 @@
 require_once(__APP_DIR__.'view.php');
 require_once(__APP_DIR__.'validator.php');
 require_once(__APP_DIR__.'users'._SL_.'model.php');
+require_once(__APP_DIR__."database.php");
 
-define("CONNECTION_TABLE", __APP_DIR__.'tmp'._SL_.'connected_users.txt');
-
-function register_connection($id){
-	file_put_contents(CONNECTION_TABLE, $id."\n", FILE_APPEND | LOCK_EX);
+function register_connection($id, $is_new=false){
+	$db = Database::getConnection();
+	if($is_new){
+		$stmt = $db->prepare("INSERT INTO users_status(user_id, session_id, status)
+							  VALUES (:uid,:sid,'1')");
+	} else {
+		$stmt = $db->prepare("UPDATE  users_status 
+							  SET  session_id =  :sid, status =  '1' 
+							  WHERE  user_id = :uid");
+	}
+	$stmt->bindValue(':uid', $id, PDO::PARAM_INT);
+	$stmt->bindValue(':sid', session_id(), PDO::PARAM_STR);
+	$stmt->execute() or die(print_r($stmt->errorInfo(), TRUE));
 }
 
 function unregister_connection($id){
-	$lines = file(CONNECTION_TABLE);
-	$n_file = array();
-	foreach ($lines as $line_num => $line) {
-		if($line != $id){
-			$n_file[$line_num] = rtrim($line);
-		}
-	}
-	file_put_contents(CONNECTION_TABLE, implode("\n", $n_file)."\n", LOCK_EX);
+	$db = Database::getConnection();
+	$stmt = $db->prepare("UPDATE  users_status 
+						  SET  session_id =  null, status =  '0' 
+						  WHERE  user_id = :uid");
+	$stmt->bindValue(':uid', $id,PDO::PARAM_INT);
+	$stmt->execute() or die(print_r($stmt->errorInfo(), TRUE));
 }
 
 function get_connected(){
-	$lines = file(CONNECTION_TABLE);
+	$db = Database::getConnection();
+	$stmt = $db->prepare("SELECT  user_id
+						  FROM users_status 
+						  WHERE  status = '1'");
+	$stmt->execute() or die(print_r($stmt->errorInfo(), TRUE));
 	$result = array();
-	foreach ($lines as $line_num => $line) {
-		array_push($result, rtrim($line));
+	while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+		array_push($result, $row['user_id']);
 	}
 	return $result;
 }
@@ -69,7 +81,7 @@ function signup(){
 				$user->save();
 				session_start();
 				$_SESSION['userID'] = $user->get_id();
-				register_connection($user->get_id());
+				register_connection($user->get_id(), true);
 				$view = new View(__TEMPLATES_DIR__.'home.php',array('user' => $user));
 			} else {
 				$result['nickname'] = array(
