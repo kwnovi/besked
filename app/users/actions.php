@@ -136,7 +136,7 @@ function find_by_nickname(){
 }
 
 function add_contact(){
-	$id = explode("/",$_SERVER['REQUEST_URI'])[4];
+	$id = end(explode("/",$_SERVER['REQUEST_URI']));
 	$user = User::get_by_id($_SESSION['userID']);
 	
 	header('HTTP/1.0 200');

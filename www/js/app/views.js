@@ -242,35 +242,124 @@ var LatestMessagesView = Backbone.View.extend({
 	}
 });
 
-/*var MessageChatView = Backbone.View.extend({
-	tagName: 'article',
-	template: _.template($("#latest-message-template").html()),
-	events:{
-		"click #btn-add": "open"
+var ParticipantView = Backbone.View.extend({
+	tagName:'div',
+	attributes: {
+		class:'profil'
 	},
+	template: _.template($("#participant-template").html()),
 	render: function(){
-		this.$el.html(this.template({
-			message:this.model.message,
-			owner: this.model.owner
-			})
-		);//le rendu
+		this.$el.html(this.template({model:this.model}));
 		return this;
 	}
-}*/
+});
 
-/*var ChatView = Backbone.View.extend({
-	el: "#chat-view",
-	template: _.template($("#chat-view-template").html())
+var ParticipantsView = Backbone.View.extend({
+	el: "#participants-container",
 	initialize: function() {
-
+	    var that = this;
+	    this._userViews = []; 
+	    this.collection.each(function(user) {
+	      that._userViews.push(new ParticipantView({ 
+	        model: user,
+	      }));
+	    });
 	},
-
 	render: function(){
+		var that = this;
+	    this.$el.empty();
+		_(this._userViews).each(function(userView) {
+		    $(that.el).append(userView.render().el);
+		});
+		return this;
+	}
+});
+
+var MessageChatView = Backbone.View.extend({
+	tagName: 'article',
+	template: _.template($("#message-chat-template").html()),
+	attributes:{
+		class: ""
+	},
+	render: function(){
+		this.attributes.class = (this.model.user_id == init_user_data.id)?"intervenant":"interlocuteur";
+		console.debug(this.attributes.class)
 		this.$el.html(this.template({
-			messages:this.model.message,
-			owner: this.model.owner
+			message:this.model,
 			})
 		);//le rendu
 		return this;
 	}
-});*/
+});
+
+var MessagesChatView = Backbone.View.extend({
+	el: "#conver",
+	initialize: function() {
+	    var that = this;
+	    this._userViews = []; 
+	    this.collection.each(function(message) {
+	      that._messageViews.push(new MessageChatView({ 
+	        model: message
+	      }));
+	    });
+	},
+	render: function(){
+		var that = this;
+	    this.$el.empty();
+		_(this._messageViews).each(function(messageView) {
+		    $(that.el).append(messageView.render().el);
+		});
+		return this;
+	}
+});
+
+var ChatView = Backbone.View.extend({
+	el: "#chat-view",
+	template: _.template($("#chat-view-template").html()),
+	events:{
+		"participants_ready": "participants_ready",
+		"messages_ready": "messages_ready"
+	},
+	participants_ready: function(){ 
+		if(this.messages_ready){
+			this.render();
+			this.participants_ready = false;
+			this.messages_ready = false;
+		} else {
+			this.participants_ready = true; 
+		}
+	},
+	messages_ready: function(){ 
+		if(this.participants_ready){
+			this.render();
+			this.participants_ready = false;
+			this.messages_ready = false;
+		} else {
+			this.messages_ready = true; 
+		}
+	},
+	initialize: function() {
+		participants_collection = new UserCollection();
+		participants_collection.url = 'discussions/participants/'+this.model.id;
+		participants_collection.fetch({
+			success:function(){
+				this.participants_view = new ParticipantsView({collection:participants_collection});
+				this.trigger("participants_ready");
+			}
+		});
+		messages_collection = new MessageCollection();
+		messages_collection.url = 'discussions/messages/'+this.model.id;
+		messages_collection.fetch({
+			success:function(){
+				this.messages_chat_view = new MessagesChatView({collection:messages_collection});
+				this.trigger("messages_ready");
+			}
+		});
+	},
+	render: function(){
+		this.$el.html(this.template());
+		this.participants_view.render();
+		this.messages_chat_view.render();
+		return this;
+	}
+});

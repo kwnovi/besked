@@ -9,6 +9,22 @@ function get_user_all_discussions (){
     echo json_encode($discussions);
 }
 
+function get_messages(){
+	$discussion_id = end(explode("/",$_SERVER['REQUEST_URI']));
+	$messages = Discussion::get_messages($discussion_id);
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
+    echo json_encode($messages);
+}
+
+function get_participants(){
+	$discussion_id = end(explode("/",$_SERVER['REQUEST_URI']));
+	$participants = Discussion::get_participants($discussion_id);
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
+    echo json_encode($participants);
+}
+
 // TODO
 function create_new_discussion() {
     echo json_encode(array("message" => "La discussion a été crée"));

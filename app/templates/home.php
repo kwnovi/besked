@@ -160,33 +160,31 @@
 </script>
 
 <script type="text/template" id="chat-view-template">
-<!-- PROFIL -->
-    <div class="profil" id="prof">
-      <div class="description">
-        <span class="titre">Rachelle Sanschagrin</span>
-        <p class="connected"><i class="fa fa-circle"></i> <strong>En ligne </strong></p>
-      </div>
-    </div>
+    <!-- PROFIL -->
+    <div id="participants-container"></div>
     <!-- MESSAGES -->
     <div class="conversation" id="conver">
-      <article class="interlocuteur">
-        <p class="msg">
-          Définition : c’est une transformation de ressources dans le but de créer des biens et des services. Pour cela il va falloir coordonner et faire circuler des flux de création de valeurs, tout en assurant la ponctualité des rendez-vous avec le besoin client. 
-        </p>
-        <p class="datetime"><i class="fa fa-check-square-o"></i> 10:16 - 10.02.2014</p>
-      </article>
-      <article class="intervenant">
-        <p class="msg">
-       Ok, super cool ! 
-        </p>
-         <p class="datetime"><i class="fa fa-check-square-o"></i> 10:16 - 10.02.2014</p>
-      </article>
     </div>
     <!-- CHATBAR -->
     <div id="chatbar">
      <input type="text"  id="chat"class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
     </div>
 </script>
+<script type="text/template" id="participant-template">
+  <div class="description">
+    <span class="titre"><%= model.nickname %></span>
+    <% if(data.connected){ %> 
+      <p class="connected"><i class="fa fa-circle"></i><strong>En ligne</strong></p>
+    <% } else { %>
+      <p><i class="fa fa-circle-o"></i><strong>Hors ligne</strong></p>
+    <% } %>
+  </div>
+</script>
+<script type="text/template" id="message-chat-template">
+<p class="msg"><%= model.content %></p>
+<p class="datetime"><i class="fa fa-check-square-o"></i><%= model.created %></p>
+</script>
+
 
 <script>
   var init_user_data = <?php echo $user; ?>;

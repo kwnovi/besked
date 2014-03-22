@@ -4,6 +4,7 @@
 
 /* COLLECTIONS */
 var contacts_collection = new UserCollection(init_contacts_data);
+contacts_collection.url = "user/contacts"; 
 var discussions_collection = new DiscussionCollection(init_discussions_data);
 var latest_messages_collection = new MessageCollection(init_messages_data);
 
@@ -72,10 +73,11 @@ $(function(){
 			$(".corpus-view").hide();
 			$("#new_topic").show(); 
 		},
-		chat: function(){
+		chat: function(discussion_id){
 			$(".corpus-view").hide();
 			$("#chat-view").show();
-
+			chat_view = new ChatView({model: discussions_collection.findWhere({id:discussion_id})});
+			//chat_view.render();
 		}
 	});
 

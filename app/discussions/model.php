@@ -86,4 +86,31 @@ class Discussion extends Model{
 		$result = self::execute($stmt);
 		return $result;
 	}
+
+	public static function get_participants($user_id){
+		$stmt = self::query("SELECT ".User::get_fields_names()."
+							FROM user_discussion
+							JOIN user on user.id = user_discussion.user_id
+							WHERE discussion_id =:id", 
+							array(
+								'id'=> $id,
+							)
+						);
+		$result = self::execute($stmt);
+		return $result;
+	}
+
+	public static function get_message($user_id){
+		$stmt = self::query("SELECT message.*
+							FROM message_discussion
+							JOIN message on message.id = message_discussion.message_id
+							WHERE discussion_id =:id", 
+							array(
+								'id'=> $id,
+							)
+						);
+		$result = self::execute($stmt);
+		return $result;
+	}
+
 }
