@@ -278,11 +278,10 @@ var ParticipantsView = Backbone.View.extend({
 var MessageChatView = Backbone.View.extend({
 	tagName: 'article',
 	template: _.template($("#message-chat-template").html()),
-	attributes:{
-		class: ""
+	attributes: function(){
+		return {class: (this.model.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur"};
 	},
 	render: function(){
-		this.attributes.class = (this.model.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur";
 		this.$el.html(this.template({
 			model:this.model.attributes
 			})
@@ -303,8 +302,6 @@ var MessagesChatView = Backbone.View.extend({
 	    });
 	},
 	render: function(){
-		console.log("toto"); 
-		console.debug($(this.el));
 		var that = this;
 	    this.$el.empty();
 		_(this._messageViews).each(function(messageView) {
