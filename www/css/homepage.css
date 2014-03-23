@@ -2,6 +2,51 @@
     height: 100%;
   }
 
+/* Quicksearch stylisation */
+
+#add-contact-resultbox ul {
+margin-top: -1px !important;
+}
+
+#add-contact-resultbox li {
+border: 1px solid #bdc3c7 !important;
+margin-top: -1px !important;
+}
+
+
+#add-contact-resultbox a {
+  color: #7f8c8d !important;
+}
+
+#add-contact-resultbox a:hover {
+  color: black !important;
+  text-decoration: none;
+}
+
+
+#add-contact-new-msg-resultbox ul {
+display: block;
+width:100%;
+}
+
+#add-contact-new-msg-resultbox li {
+border: 1px solid #bdc3c7 !important;
+margin-top: -1px !important;
+display: block;
+width:100%;
+margin-right: -5px !important;
+}
+
+
+#add-contact-new-msg-resultbox a {
+  color: #7f8c8d !important;
+}
+
+#add-contact-new-msg-resultbox a:hover {
+  color: black !important;
+  text-decoration: none;
+}
+
 
 .form-textarea {
 
