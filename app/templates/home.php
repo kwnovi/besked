@@ -64,7 +64,6 @@
 
   <!-- VUE AJOUTER CONTACT -->
   <div class="corpus-view" id="add-contact-view" style="display: none">
-    
     <div class="description">
       <input id="add-contact" type="text" class="form-control searchbar" placeholder="Entrez les noms des contacts que vous voulez ajouter.."/>
       <div id="add-contact-resultbox" class="searchbar-resultbox">
