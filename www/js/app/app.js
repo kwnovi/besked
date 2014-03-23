@@ -77,7 +77,7 @@ $(function(){
 			$(".corpus-view").hide();
 			$("#chat-view").show();
 			chat_view = new ChatView({model: discussions_collection.findWhere({id:discussion_id})});
-			//chat_view.render();
+			// chat_view.render();
 		}
 	});
 

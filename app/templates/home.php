@@ -112,7 +112,15 @@
 
   <!-- VUE CHAT -->
   <div class="corpus-view" id="chat-view" style="display: none">
-    
+    <!-- PROFIL -->
+    <div id="participants-container"></div>
+    <!-- MESSAGES -->
+    <div class="conversation" id="msg-container">
+    </div>
+    <!-- CHATBAR -->
+    <div id="chatbar">
+     <input type="text"  id="chat" class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
+    </div>
   </div>
 </div>
 
@@ -160,20 +168,12 @@
 </script>
 
 <script type="text/template" id="chat-view-template">
-    <!-- PROFIL -->
-    <div id="participants-container"></div>
-    <!-- MESSAGES -->
-    <div class="conversation" id="conver">
-    </div>
-    <!-- CHATBAR -->
-    <div id="chatbar">
-     <input type="text"  id="chat"class="form-control" placeholder="Tapez votre message et appuyez sur Entrer pour l'envoyer">
-    </div>
+    
 </script>
 <script type="text/template" id="participant-template">
   <div class="description">
     <span class="titre"><%= model.nickname %></span>
-    <% if(data.connected){ %> 
+    <% if(model.connected){ %> 
       <p class="connected"><i class="fa fa-circle"></i><strong>En ligne</strong></p>
     <% } else { %>
       <p><i class="fa fa-circle-o"></i><strong>Hors ligne</strong></p>

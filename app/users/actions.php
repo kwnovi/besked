@@ -79,6 +79,8 @@ function signup(){
 				$_POST['created_datetime'] = date("Y-m-d H:i:s");
 				$user = User::create_from_request($_POST);
 				$user->save();
+				// pour récupérer l'id
+				$user = $user->find_by_email($user->get_attr("email"));
 				session_start();
 				$_SESSION['userID'] = $user->get_id();
 				register_connection($user->get_id(), true);

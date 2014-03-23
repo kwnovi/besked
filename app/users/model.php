@@ -107,6 +107,14 @@ class User extends Model{
 		return $results;
 	}
 
+	public static function find_by_email($email){
+		$stmt = self::query("SELECT ".self::get_fields_names()." FROM ".self::table_name."
+							 WHERE email = :email LIMIT 1", 
+							array('email'=> $email));
+		$results = self::execute($stmt);
+		return (empty($results))?false:self::__construct_fill_fields($results[0]);
+	}
+
 	public function add_contact($contact_id){
 		$stmt = self::query("INSERT INTO  contact (user_id_1 ,user_id_2)
 							 VALUES (:id, :contact_id)", 

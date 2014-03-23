@@ -33,7 +33,6 @@ abstract class Model{
 		$table = $this::table_name;
 
 		$stmt = $this->query("SELECT $fields FROM $table WHERE id = :id LIMIT 1", array('id' => $id));
-
 		return static::__construct_fill_fields($this->execute($stmt)[0]);
 	}
 
@@ -75,7 +74,7 @@ abstract class Model{
 		}
 		// moche
 		$query_string = rtrim($query_string,',');
-		$stmt = $this::query($query_string.')');
+		$stmt = $this::query($query_string.');commit;');
 		
 		$this::execute($stmt, $params);
 	}
