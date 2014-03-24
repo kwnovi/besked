@@ -167,7 +167,7 @@ margin-top:  15px !important;
   }
 
 .titre {
-font-size: 25px;
+font-size: 18px;
 
 }
 .photo {
@@ -177,38 +177,34 @@ font-size: 25px;
   margin-right: 0px;
 }
 
-.description {
-padding-top: 20px;
-
+.description span{
+    margin-left: 5px;
 }
 .profil {
-  padding-top: 10px;
-  margin-bottom: 70px;
-  height: 90px;
+    display: inline-block;
+    margin-right: 20px;
 }
 .corpus {
-margin-left: 30px; 
-display: block;
-overflow: hidden;
-overflow-y: auto;
-margin-right: 30px;
+  margin-left: 30px; 
+  display: block;
+  overflow: hidden;
+  overflow-y: auto;
+  margin-right: 30px;
 }
 
 .connected {
-color:#3498db;
+  color:#3498db;
 }
 
 .content-area {
-
   overflow: hidden;
   overflow-y: auto;
-
 }
 
 .menu {
-margin-bottom: 0px;
-display:block;
-height: 120px;
+  margin-bottom: 0px;
+  display:block;
+  height: 120px;
 }
 
 .conversation {
@@ -220,24 +216,25 @@ height: 120px;
 }
 
 .interlocuteur {
-margin-bottom: 30px;
-
-text-align: justify;
-
+  margin-bottom: 30px;
+  text-align: left;
 }
 .interlocuteur .msg {
   padding-right: 60px;
 }
 
+.interlocuteur p{
+  text-align: left;
+}
+
 .intervenant .msg {
-    padding-left: 60px;
+  
 }
 .intervenant {
-  text-align: justify;
-
-float:right;
-margin-bottom: 30px;
-
+  text-align: right;
+  margin-bottom: 30px;
+  display: block;
+  padding-right: 20px;
 }
 
 
@@ -261,8 +258,8 @@ height :40px !important;
 #chatbar {
   padding-right: 20px;
   padding-left: 20px;
-height : 60px;
-display: block; 
+display: block;
+height: 60px; 
 
 }
 .datetime{
@@ -326,7 +323,6 @@ overflow-y: auto;
 
 .corpus p {
 
-  text-align: justify;
 }
 
 #add-contact-resultbox ul{

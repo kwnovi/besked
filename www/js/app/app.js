@@ -25,14 +25,15 @@ function change_selection(){
 }
 
 function redimension(){
+//	$("body").css('height', window.innerHeight+"px");
 	var height = window.innerHeight - $("#B1").outerHeight(true);
 	$("#B2").css("max-height", height + 'px');
 
 	var Theight = window.innerHeight ;
 	$("#B4").css("max-height", Theight + 'px');
 
-	var secondHeight = window.innerHeight - $("#prof").outerHeight(true) - $('#chatbar').outerHeight(true);
-	$("#conver").css("height", secondHeight + 'px');
+	var secondHeight = window.innerHeight - $("#chat-header").outerHeight(true) - $('#chatbar').outerHeight(true);
+	$("#msg-container").css("height", secondHeight + 'px');
 }
 
 /**********************************
@@ -53,6 +54,7 @@ $(function(){
 			"discussion/:discussion_id": "chat"
 		},
 		add_contacts: function(){
+			$(".corpus-view").hide();
 			$("#add-contact-view").show();
 		},
 		messages: function(){
@@ -151,7 +153,6 @@ $(function(){
 			       		nb_items = list_el.length;
 			       	}
         		}
-				
         	}
         } else { 
             list_el.empty();
@@ -165,13 +166,25 @@ $(function(){
 	});
 
 	$("#newTopic").click(function() {
-       $.ajax({
+		var _recipients = [];
+		$("#recipients-container>button").each(function(item){
+			_recipients.push($(this).attr('data-id'));
+		});
+        $.ajax({
                 type: "POST",
                 url: "discussions/new",
-                data: { title: $("#titleDiscussion").val(), message: $("#MSGGroup").val()  }
+                data: { 
+                	title: $("#titleDiscussion").val(), 
+                	message: $("#MSGGroup").val(),
+                	recipients: _recipients  
+                }
               }).done(function( data ) {
-                alertify.success(data.message)
-              }); 
+              	 discussions_collection.fetch({
+              	 	success:function(){
+	              	 nav.navigate("discussion/"+data, {trigger: true});
+              	 	}
+              	 });
+              });
     });
 
 	// fix taille des zone de scroll

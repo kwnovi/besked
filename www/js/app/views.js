@@ -70,10 +70,9 @@ var UserProfileView = Backbone.View.extend({
 		$.get("/besked/user/add_contact/"+this.model.id, null,function(data){
 			contacts_collection.fetch({
 				success: function(){
-					that.render();			
+					alertify.success("Le contact a bien été ajouté.");
 				}
 			});
-			alertify.success("Le contact a bien été ajouté.")
 		});
 	}
 });
@@ -82,23 +81,32 @@ var ContactsView = Backbone.View.extend({
 	el: $("#contact-list>ul"),// point d'attache dans le dom 
 
 	initialize: function() {
-	    this.listenTo(this.collection, "change", this.render);
+	    this.listenTo(contacts_collection, "change", this.render);
 	    var that = this;
 	    this._userViews = []; 
-	    this.collection.each(function(user) {
+	    contacts_collection.each(function(user) {
 	    	// rajout d'un element dans le tableau
 	      that._userViews.push(new UserContactView({ 
 	        model: user,
 	      }));
+	    });
+	    contacts_collection.on("add", function(usr){
+	    	that._userViews.push(new UserContactView({ 
+	        	model: usr
+	      	}));
 	    });
 	},
 
 	render: function(){
 		var that = this;
 	    this.$el.empty();
-		_(this._userViews).each(function(userView) {
-		    $(that.el).append(userView.render().el);
-		});
+	    if(this.collection.length == 0){
+	    	$(that.el).append("Pas de nouveaux messages");
+	    } else {
+			_(this._userViews).each(function(userView) {
+			    $(that.el).append(userView.render().el);
+			});
+		}
 	}
 });
 
@@ -170,7 +178,7 @@ var DiscussionHeadView = Backbone.View.extend({
 					that.render();
 				}
 			});
-			alertify.success("La discussion a bien été supprimé.");
+			//alertify.success("La discussion a bien été supprimé.");
 		});
 	}
 })
@@ -180,12 +188,18 @@ var DiscussionsView = Backbone.View.extend({
 
 	initialize: function() {
 	    var that = this;
+	    this.listenTo(this.collection, "change", this.render);
 	    this._discussionViews = []; 
 	    this.collection.each(function(discussion) {
 	    	// rajout d'un element dans le tableau
 	      that._discussionViews.push(new DiscussionHeadView({ 
 	        model: discussion,
 	      }));
+	    });
+	    this.collection.on("add", function(dis){
+	    	that._discussionViews.push(new DiscussionHeadView({ 
+	        	model: dis
+	      	}));
 	    });
 	},
 
@@ -279,9 +293,10 @@ var MessageChatView = Backbone.View.extend({
 	tagName: 'article',
 	template: _.template($("#message-chat-template").html()),
 	attributes: function(){
-		return {class: (this.model.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur"};
+		return {class: "clearfix "+ ((this.model.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur")};
 	},
 	render: function(){
+		console.debug(this.model.id)
 		this.$el.html(this.template({
 			model:this.model.attributes
 			})
@@ -295,13 +310,20 @@ var MessagesChatView = Backbone.View.extend({
 	initialize: function() {
 	    var that = this;
 	    this._messageViews = []; 
+	    this.listenTo(this.collection, "change", this.render);
 	    this.collection.each(function(message) {
 	      that._messageViews.push(new MessageChatView({ 
 	        model: message
 	      }));
 	    });
+	    this.collection.on("add", function(msg){
+	    	that._messageViews.push(new MessageChatView({ 
+	        	model: msg
+	      	}));
+	    });
 	},
 	render: function(){
+		console.debug(this.collection);
 		var that = this;
 	    this.$el.empty();
 		_(this._messageViews).each(function(messageView) {
@@ -313,21 +335,23 @@ var MessagesChatView = Backbone.View.extend({
 
 var ChatView = Backbone.View.extend({
 	el: "#chat-view",
-	template: _.template($("#chat-view-template").html()),
+	events: {
+		"keyup #chat": "keyup"
+	},
 	initialize: function() {
 		var that = this;
 		this.delegateEvents();
-		participants_collection = new UserCollection();
-		participants_collection.url = 'discussions/participants/'+this.model.id;
-		messages_collection = new MessageCollection();
-		messages_collection.url = 'discussions/messages/'+this.model.id;
+		this.participants_collection = new UserCollection();
+		this.participants_collection.url = 'discussions/participants/'+this.model.id;
+		this.messages_collection = new MessageCollection();
+		this.messages_collection.url = 'discussions/messages/'+this.model.id;
 
 		// quand les 2 fetch sont terminés
-		$.when(participants_collection.fetch(), messages_collection.fetch()).done(
+		$.when(this.participants_collection.fetch(), this.messages_collection.fetch()).done(
 			// success
 			function(){
-				that.messages_chat_view = new MessagesChatView({collection:messages_collection});
-				that.participants_view = new ParticipantsView({collection:participants_collection});
+				that.messages_chat_view = new MessagesChatView({collection:that.messages_collection});
+				that.participants_view = new ParticipantsView({collection:that.participants_collection});
 				that.render();
 			}/*,
 			// fail
@@ -337,8 +361,32 @@ var ChatView = Backbone.View.extend({
 		);
 	},
 	render: function(){
+		console.log("toto");
 		this.messages_chat_view.render();
 		this.participants_view.render();
+		redimension();
+		this.delegateEvents();
 		return this;
+	},
+	keyup: function(e){
+		var that = this;
+		if(e.keyCode == ENTER){
+			 $.ajax({
+                type: "POST",
+                url: "discussions/add-msg",
+                data: { 
+                	discussion_id : this.model.id,
+                	message: $("#chat").val()
+                }
+              }).done(function( data ) {
+              	$("#chat").val("");
+              	that.messages_collection.fetch({success:function(){ console.log('titi');that.render();}})
+                //alertify.success(data.message)
+              });
+		}
 	}
 });
+
+/*$('#chat').keyup(function(e){
+	console.log ('toto')
+})*/

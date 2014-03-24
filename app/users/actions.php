@@ -47,7 +47,7 @@ function login(){
 		$_POST['password'] = crypt($_POST['password'], 'toto');
 		$user = User::get_from_request($_POST);
 		if(!$user){
-			$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+			$view = new LandingView(__TEMPLATES_DIR__.'landing.php', array(
 				'signup_data' => false,
 				'login_data' => 'Cette adresse et ce mot de passe ne correspondent pas. Veuillez recommencer.'
 			));
@@ -55,7 +55,20 @@ function login(){
 			session_start();
 			$_SESSION['userID'] = $user->get_id();
 			register_connection($user->get_id());
-			$view = new View(__TEMPLATES_DIR__.'home.php', array('user' => $user));
+			$user_contacts = $user->get_contacts();
+			$connected = get_connected();
+			$contacts = array();
+			for ($i=0; $i < count($user_contacts); $i++) { 
+				$contacts[$i] = $user_contacts[$i]->get_fields_values();
+				$contacts[$i]["connected"] = in_array($user_contacts[$i]->get_id(), $connected);
+			}
+			$view = new HomeView(__TEMPLATES_DIR__.'home.php', array(
+				'user_j' => $user->toJson(),
+				'user' => $user,
+				'contacts' => my_json_encode($contacts),
+				'discussions' => my_json_encode(Discussion::get_user_all_discussions($user->get_id())),
+				'messages' => my_json_encode(Discussion::get_latest_messages_all_discussions($user->get_id()))
+			));
 		}
 		$view->render();
 	} else {
@@ -68,7 +81,7 @@ function signup(){
 		$validator = new Validator();
 		$result = $validator->validate(User::validation_fields(), $_POST);
 		if($result['has_errors']){
-			$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+			$view = new LandingView(__TEMPLATES_DIR__.'landing.php', array(
 				'login_data' => false,
 				'signup_data' => $result)
 			);
@@ -84,13 +97,13 @@ function signup(){
 				session_start();
 				$_SESSION['userID'] = $user->get_id();
 				register_connection($user->get_id(), true);
-				$view = new View(__TEMPLATES_DIR__.'home.php',array('user' => $user));
+				$view = new HomeView(__TEMPLATES_DIR__.'home.php',array('user' => $user));
 			} else {
 				$result['nickname'] = array(
 					"error" => true,
 					"message" => "Pseudonyme déjà pris."
 				);
-				$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+				$view = new HomeView(__TEMPLATES_DIR__.'landing.php', array(
 					'login_data' => false,
 					'signup_data' => $result
 				));

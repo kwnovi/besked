@@ -14,19 +14,13 @@
 // TODO
 // Permettre d'injecter tel ou tel css/js depuis le php
 
-class View{
+abstract class View{
 
-	private $header;
-	private $footer;
+	protected $header;
+	protected $footer;
 	protected $template;
 	protected $data;
 
-	public function __construct($template = null, $data = null){
-		$this->header = __TEMPLATES_DIR__.'header.php';
-		$this->footer = __TEMPLATES_DIR__.'footer.php';	
-		$this->template = $template;
-		$this->data = $data;
-	}
 
 	// fonction générant la vue
 	public function render(){
@@ -42,5 +36,23 @@ class View{
         include ($this->template);
         include ($this->footer);
         ob_end_flush();
+	}
+}
+
+class LandingView extends View{
+	public function __construct($template = null, $data = null){
+		$this->header = __TEMPLATES_DIR__.'landing_header.php';
+		$this->footer = __TEMPLATES_DIR__.'landing_footer.php';	
+		$this->template = $template;
+		$this->data = $data;
+	}
+}
+
+class HomeView extends View{
+	public function __construct($template = null, $data = null){
+		$this->header = __TEMPLATES_DIR__.'home_header.php';
+		$this->footer = __TEMPLATES_DIR__.'home_footer.php';	
+		$this->template = $template;
+		$this->data = $data;
 	}
 }

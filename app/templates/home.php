@@ -57,8 +57,8 @@
 <div class="corpus">
   <!-- VUE A LA CONNEXION -->
   <div id="hello-view" class="corpus-view">
-    <h1>Welcome Rachelle Sanschagrin !</h1>
-    <p><strong>Meaningful but nonetheless useless shit here ..</strong>  </p>
+    <h1>Welcome <?php echo $user->get_attr("nickname");?> !</h1>
+    <p><strong>Meaningful but nonetheless useless stuff here ..</strong>  </p>
     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
   </div>
 
@@ -112,7 +112,11 @@
   <!-- VUE CHAT -->
   <div class="corpus-view" id="chat-view" style="display: none">
     <!-- PROFIL -->
-    <div id="participants-container"></div>
+    <div id="chat-header">
+      <h3>Participants</h3>
+      <div id="participants-container"></div>
+      <hr>
+    </div>
     <!-- MESSAGES -->
     <div class="conversation" id="msg-container">
     </div>
@@ -138,7 +142,7 @@
 
 
 <script type="text/template" id="user-profile-template">
-  <div class="photo"><img src="<%= model.picture_path %>" alt="Profil" class="img-circle"/></div>
+  <!--<div class="photo"><img src="<%= model.picture_path %>" alt="Profil" class="img-circle"/></div>-->
   <h1><%= model.nickname %></h1>
   <div class="description">
   </div>
@@ -166,16 +170,13 @@
 </a>
 </script>
 
-<script type="text/template" id="chat-view-template">
-    
-</script>
 <script type="text/template" id="participant-template">
   <div class="description">
     <span class="titre"><%= model.nickname %></span>
     <% if(model.connected){ %> 
-      <p class="connected"><i class="fa fa-circle"></i><strong>En ligne</strong></p>
+      <p class="connected"><i class="fa fa-circle"></i><span>En ligne</span></p>
     <% } else { %>
-      <p><i class="fa fa-circle-o"></i><strong>Hors ligne</strong></p>
+      <p><i class="fa fa-circle-o"></i><span>Hors ligne</span></p>
     <% } %>
   </div>
 </script>
@@ -186,7 +187,7 @@
 
 
 <script>
-  var init_user_data = <?php echo $user; ?>;
+  var init_user_data = <?php echo $user_j; ?>;
   var init_contacts_data = <?php echo $contacts; ?>;
   var init_discussions_data = <?php echo $discussions; ?>;
   var init_messages_data = <?php echo $messages; ?>;

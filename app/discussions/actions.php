@@ -22,14 +22,18 @@ function get_participants(){
 	$splitted_url = explode("/",$_SERVER['REQUEST_URI']);
 	$discussion_id = end($splitted_url);
 	$participants = Discussion::get_participants($discussion_id);
-/*	header('HTTP/1.0 200');
-    header('Content-Type: application/json');*/
+	header('HTTP/1.0 200');
+    header('Content-Type: application/json');
     echo my_json_encode($participants);
 }
 
-// TODO
+// TODO ajouter des msg de retour
 function create_new_discussion() {
-    echo my_json_encode(array("message" => "La discussion a été crée"));
+	echo Discussion::create_from_request();
+}
+// TODO ajouter des msg de retour
+function add_message(){
+	echo Discussion::add_message();
 }
 
 // QUICKFIX

@@ -14,14 +14,15 @@ function home_view(){
 			$contacts[$i] = $user_contacts[$i]->get_fields_values();
 			$contacts[$i]["connected"] = in_array($user_contacts[$i]->get_id(), $connected);
 		}
-		$view = new View(__TEMPLATES_DIR__.'home.php', array(
-			'user' => $user->toJson(),
+		$view = new HomeView(__TEMPLATES_DIR__.'home.php', array(
+			'user_j' => $user->toJson(),
+			'user' => $user,
 			'contacts' => my_json_encode($contacts),
 			'discussions' => my_json_encode(Discussion::get_user_all_discussions($user->get_id())),
 			'messages' => my_json_encode(Discussion::get_latest_messages_all_discussions($user->get_id()))
 			));
 	} else {
-		$view = new View(__TEMPLATES_DIR__.'landing.php', array(
+		$view = new LandingView(__TEMPLATES_DIR__.'landing.php', array(
 			'login_data' => false,
 			'signup_data' => false
 			)
@@ -38,7 +39,7 @@ function home_view(){
 function my_json_encode($arr){
 	array_walk_recursive($arr, function (&$item, $key) { 
 		if (is_string($item)) 
-			$item = utf8_encode($item); 
+			$item = htmlentities($item); 
 	});
 	return json_encode($arr);
 }

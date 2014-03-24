@@ -74,13 +74,14 @@ class Discussion extends Model{
 			FROM USER_DISCUSSION 
 			JOIN discussion_message on discussion_message.discussion_id = USER_DISCUSSION.discussion_id
 			JOIN message on message.id = discussion_message.message_id
-			WHERE USER_DISCUSSION.user_id = :id and message.id in (
+			WHERE USER_DISCUSSION.user_id = :id1 and message.user_id <> :id2 and message.id in (
 				select m1.id from message as m1
 				left outer join message as m2 on m1.discussion_id = m2.discussion_id
 					and m2.created > m1.created
 				where m2.created is null)",
 			array(
-				'id'=> $user_id,
+				'id1'=> $user_id,
+				'id2'=> $user_id
 			)
 		);
 		$result = self::execute($stmt);
@@ -111,6 +112,52 @@ class Discussion extends Model{
 						);
 		$result = self::execute($stmt);
 		return $result;
+	}
+
+
+	// coding horror monster show
+	public static function create_from_request(){
+		$db = Database::getConnection();
+		$stmt = self::query("INSERT INTO `discussion`(`title`) VALUES (:title)", 
+							array('title'=> $_POST['title'])
+							);
+		self::execute($stmt);
+		$discussion_id = $db->lastInsertId();
+		$stmt = self::query("INSERT INTO `user_discussion`(user_id, discussion_id) VALUES (:uid, :did)", 
+							array('uid'=> $_SESSION['userID'], 'did'=> $discussion_id)
+							);
+		self::execute($stmt);
+		foreach ($_POST['recipients'] as $key => $value) {
+			$stmt = self::query("INSERT INTO `user_discussion`(user_id, discussion_id) VALUES (:uid, :did)", 
+							array('uid'=> $value, 'did'=> $discussion_id)
+							);
+			self::execute($stmt);
+		}
+		$stmt = self::query("INSERT INTO `message`(`content`,`discussion_id`, `user_id`) VALUES (:content, :did, :uid)", 
+							array('uid'=> $_SESSION['userID'], 'did'=> $discussion_id, 'content'=> $_POST['message'])
+							);
+		self::execute($stmt);
+		$message_id = $db->lastInsertId();
+		$stmt = self::query("INSERT INTO `discussion_message`(message_id, discussion_id) VALUES (:mid, :did)", 
+						array('mid'=> $message_id, 'did'=> $discussion_id)
+						);
+		self::execute($stmt);
+		return $discussion_id;
+	}
+
+	// again
+	public static function add_message(){
+		$db = Database::getConnection();
+		$stmt = self::query("INSERT INTO `message`(`content`,`discussion_id`, `user_id`) VALUES (:content, :did, :uid)", 
+							array('uid'=> $_SESSION['userID'], 'did'=> $_POST['discussion_id'], 'content'=> $_POST['message'])
+							);
+		self::execute($stmt);
+		$message_id = $db->lastInsertId();
+		$stmt = self::query("INSERT INTO `discussion_message`(message_id, discussion_id) VALUES (:mid, :did)", 
+						array('mid'=> $message_id, 'did'=> $_POST['discussion_id'])
+						);
+		self::execute($stmt);
+		return $message_id;
 	}
 
 }

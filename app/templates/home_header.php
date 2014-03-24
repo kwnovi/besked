@@ -8,14 +8,12 @@
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     <!-- CSS -->
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <!--<link href="<?php echo __WWW_DIR__;?>/css/home.css" rel="stylesheet">-->
-    <!--<link href="<?php echo __WWW_DIR__;?>/css/main.css" rel="stylesheet">-->
-    <link href="<?php echo __WWW_DIR__;?>/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo __WWW_DIR__;?>/css/alertify.core.css" rel="stylesheet">
-    <link href="<?php echo __WWW_DIR__;?>/css/alertify.bootstrap.css" rel="stylesheet">
-    <link href="<?php echo __WWW_DIR__;?>/css/homepage.css" rel="stylesheet">
-    <link rel="shortcut icon" href="<?php echo __WWW_DIR__;?>/img/besked-20140323-favicon.ico" type="image/x-icon" /> 
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>css/alertify.core.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>css/alertify.bootstrap.css" rel="stylesheet">
+    <link href="<?php echo __WWW_DIR__;?>css/homepage.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<?php echo __WWW_DIR__;?>img/besked-20140323-favicon.ico" type="image/x-icon" /> 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

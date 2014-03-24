@@ -9,7 +9,6 @@ display: block;
 width:800px;
 margin: 0 auto;
 text-align: center;
-background-image: url(./www/img/back.png) ;
 padding-top: 100px;
 
 }
@@ -20,7 +19,6 @@ header h2 {
 	font-family: 'Lato', sans-serif;
     font-weight: 100;
 	font-size: 40px;
-	margin-bottom: -30px;
 }
 
 header h4 {
@@ -99,22 +97,20 @@ font-family: "Alright Sans","Helvetica Neue",Helvetica,sans-serif;
 
 
 .form-control {
-	width:200px;
-	height: 20px;
+	width:100%;
+	height: 28px;
 	margin-top: 10px;
 	text-align: center;
 }
 .form-group {
-	text-align:center;
 }
 
 .btn {
 	background-color: #3498db;
 	color:white;
-	width: 205px;
-	height:25px;
 	border: none;
 	margin-top: 10px;
+	width: 100%;
 }
 
 

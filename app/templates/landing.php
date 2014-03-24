@@ -33,7 +33,7 @@
                   <?php if($login_data) echo "<span class=\"help-block\">$login_data</span>";?> 
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-lg btn-default">Signin</button>
+                  <button type="submit" class="btn btn-lg btn-default">Login</button>
                 </div>
               </form>
               <form id="signup-form" action="<?php echo __ROOT__;?>users/signup" method="post" style="display: <?php echo ($signup_data)?'block':'none';?>" class="form-horizontal" role="form">
