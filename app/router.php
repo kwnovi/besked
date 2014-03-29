@@ -21,7 +21,7 @@
  * Licensed under The WTFPL License
  *
  * @license http://www.wtfpl.net/txt/copying/
- * @author Lucien Varaca <k.wnovi@gmail.com>
+ * @author Lucien Varacca <k.wnovi@gmail.com>
  * @author Quentin Le Bour <q.lebour@gmail.com>
  */
 
@@ -68,7 +68,7 @@ class Router{
 
 	private static function not_found(){
 		header("HTTP/1.0 404 Not Found", false, 404);
-		$view = new View(__TEMPLATES_DIR__.'404.php');
+		$view = new NotFoundView(__TEMPLATES_DIR__.'404.php');
 		$view->render();
 		exit;
 	}

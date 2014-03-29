@@ -15,7 +15,7 @@
           <div class="inner cover">
             <header>
              
-            <h2><a href="#">Besked</a></h2>
+            <h2><a href="/besked/">Besked</a></h2>
              <h4>Messaging system made shockingly simple.</h4>
             <div class="global_button" id="ctl-buttons" style="display: <?php echo ($signup_data || $login_data)?'none':'block';?>">
               <button id="btn-login">Login</button> 

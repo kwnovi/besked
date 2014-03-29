@@ -81,8 +81,10 @@ var ContactsView = Backbone.View.extend({
 	el: $("#contact-list>ul"),// point d'attache dans le dom 
 
 	initialize: function() {
+		// en cas de changement sur la collection on regénère la vue
 	    this.listenTo(contacts_collection, "change", this.render);
 	    var that = this;
+	    // tableau de vues du model des users
 	    this._userViews = []; 
 	    contacts_collection.each(function(user) {
 	    	// rajout d'un element dans le tableau
@@ -90,6 +92,7 @@ var ContactsView = Backbone.View.extend({
 	        model: user,
 	      }));
 	    });
+	    // en cas d'ajout de contact on rajoute la vue correspondante
 	    contacts_collection.on("add", function(usr){
 	    	that._userViews.push(new UserContactView({ 
 	        	model: usr
@@ -99,10 +102,12 @@ var ContactsView = Backbone.View.extend({
 
 	render: function(){
 		var that = this;
+		// on nettoie la zone avant d'écrire
 	    this.$el.empty();
 	    if(this.collection.length == 0){
-	    	$(that.el).append("Pas de nouveaux messages");
+	    	$(that.el).append("<a href='#add_contacts'>Pas de contacts, voulez-vous en rajouter ?</a>");
 	    } else {
+	    	// Pour chaques vues on appelle son render qu'on ajoute au el
 			_(this._userViews).each(function(userView) {
 			    $(that.el).append(userView.render().el);
 			});
@@ -205,10 +210,14 @@ var DiscussionsView = Backbone.View.extend({
 
 	render: function(){
 		var that = this;
-	    this.$el.empty();
-		_(this._discussionViews).each(function(discussionView) {
-		    $(that.el).append(discussionView.render().el);
-		});
+	    if(this.collection.length == 0){
+	    	$(that.el).append("<a href='#new_msg'>Pas de discussion, voulez-vous en créer une ?</a>");
+	    } else {
+		    this.$el.empty();
+			_(this._discussionViews).each(function(discussionView) {
+			    $(that.el).append(discussionView.render().el);
+			});
+		}
 	}
 });
 
@@ -249,10 +258,14 @@ var LatestMessagesView = Backbone.View.extend({
 
 	render: function(){
 		var that = this;
-	    this.$el.empty();
-		_(this._messageViews).each(function(messageView) {
-		    $(that.el).append(messageView.render().el);
-		});
+	    if(this.collection.length == 0){
+	    	$(that.el).append("Pas de nouveaux messages.");
+	    } else {
+			this.$el.empty();
+			_(this._messageViews).each(function(messageView) {
+			    $(that.el).append(messageView.render().el);
+			});
+		}
 	}
 });
 
@@ -293,12 +306,13 @@ var MessageChatView = Backbone.View.extend({
 	tagName: 'article',
 	template: _.template($("#message-chat-template").html()),
 	attributes: function(){
-		return {class: "clearfix "+ ((this.model.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur")};
+		return {class: "clearfix "+ ((this.model.message.get("user_id") == init_user_data.id)?"intervenant":"interlocuteur")};
 	},
 	render: function(){
-		console.debug(this.model.id)
+		console.debug(this.model);
 		this.$el.html(this.template({
-			model:this.model.attributes
+			message:this.model.message.attributes,
+			contact: this.model.contact.attributes
 			})
 		);//le rendu
 		return this;
@@ -311,19 +325,26 @@ var MessagesChatView = Backbone.View.extend({
 	    var that = this;
 	    this._messageViews = []; 
 	    this.listenTo(this.collection, "change", this.render);
-	    this.collection.each(function(message) {
-	      that._messageViews.push(new MessageChatView({ 
-	        model: message
-	      }));
-	    });
-	    this.collection.on("add", function(msg){
+	    this.collection.each(function(_message) {
+	    	var contact_tmp = (_message.get("user_id") == USER.id)?USER:contacts_collection.findWhere({id:_message.get("user_id")});
 	    	that._messageViews.push(new MessageChatView({ 
-	        	model: msg
-	      	}));
+	        	model: { 
+		        	"message": _message,
+		        	"contact": contact_tmp
+	        	}
+	    	}));
+	    });
+	    this.collection.on("add", function(_message){
+	    	var contact_tmp = (_message.get("user_id") == init_user_data.id)?init_user_data.id:contacts_collection.findWhere({id:_message.get("user_id")});
+	    	that._messageViews.push(new MessageChatView({ 
+				model: { 
+		        	"message": _message,
+		        	"contact": contact_tmp
+	        	}      	
+	    	}));
 	    });
 	},
 	render: function(){
-		console.debug(this.collection);
 		var that = this;
 	    this.$el.empty();
 		_(this._messageViews).each(function(messageView) {
@@ -353,15 +374,10 @@ var ChatView = Backbone.View.extend({
 				that.messages_chat_view = new MessagesChatView({collection:that.messages_collection});
 				that.participants_view = new ParticipantsView({collection:that.participants_collection});
 				that.render();
-			}/*,
-			// fail
-			function(){
-				alertify.error("ERROR");
-			}*/
+			}
 		);
 	},
 	render: function(){
-		console.log("toto");
 		this.messages_chat_view.render();
 		this.participants_view.render();
 		redimension();
@@ -380,13 +396,8 @@ var ChatView = Backbone.View.extend({
                 }
               }).done(function( data ) {
               	$("#chat").val("");
-              	that.messages_collection.fetch({success:function(){ console.log('titi');that.render();}})
-                //alertify.success(data.message)
+              	that.messages_collection.fetch({success:function(){ that.render();}})
               });
 		}
 	}
 });
-
-/*$('#chat').keyup(function(e){
-	console.log ('toto')
-})*/

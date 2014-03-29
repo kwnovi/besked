@@ -181,8 +181,9 @@
   </div>
 </script>
 <script type="text/template" id="message-chat-template">
-<p class="msg"><%= model.content %></p>
-<p class="datetime"><i class="fa fa-check-square-o"></i><%= model.created %></p>
+<div class="msg-head" style="display: inline-block"><%= contact.nickname %></div>
+<p class="msg"><%= message.content %></p>
+<p class="datetime"><i class="fa fa-check-square-o"></i><%= message.created %></p>
 </script>
 
 

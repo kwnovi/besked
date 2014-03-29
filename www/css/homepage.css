@@ -227,6 +227,22 @@ font-size: 18px;
   text-align: left;
 }
 
+.msg-head{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 3px;
+  margin-bottom: 5px; 
+  font-size: 14px;
+  color: rgb(175, 175, 175);
+}
+
+.intervenant .msg-head{
+  padding-left: 50px;
+}
+
+.interlocuteur .msg-head{
+  padding-right: 50px;
+}
+
 .intervenant .msg {
   
 }

@@ -51,11 +51,14 @@ function login(){
 				'signup_data' => false,
 				'login_data' => 'Cette adresse et ce mot de passe ne correspondent pas. Veuillez recommencer.'
 			));
+			$view->render();
 		} else {
 			session_start();
 			$_SESSION['userID'] = $user->get_id();
 			register_connection($user->get_id());
-			$user_contacts = $user->get_contacts();
+				// quickfix
+			header('Location: /besked/', true, 301);
+			/*$user_contacts = $user->get_contacts();
 			$connected = get_connected();
 			$contacts = array();
 			for ($i=0; $i < count($user_contacts); $i++) { 
@@ -68,11 +71,12 @@ function login(){
 				'contacts' => my_json_encode($contacts),
 				'discussions' => my_json_encode(Discussion::get_user_all_discussions($user->get_id())),
 				'messages' => my_json_encode(Discussion::get_latest_messages_all_discussions($user->get_id()))
-			));
+			));*/
 		}
-		$view->render();
+		//header('Location: /besked/', true, 301);
+		$view->render("");
 	} else {
-		header('Location: '.__ROOT_DIR__, true, 301);
+		header('Location: /besked/', true, 301);
 	}
 }
 
@@ -85,6 +89,7 @@ function signup(){
 				'login_data' => false,
 				'signup_data' => $result)
 			);
+			$view->render();
 		} else {
 			//SQL UNIQUE
 			if(User::check_nickname($_POST['nickname'])){
@@ -97,13 +102,14 @@ function signup(){
 				session_start();
 				$_SESSION['userID'] = $user->get_id();
 				register_connection($user->get_id(), true);
-				$view = new HomeView(__TEMPLATES_DIR__.'home.php',array('user' => $user));
+				// quickfix
+				header('Location: /besked/', true, 301);
 			} else {
 				$result['nickname'] = array(
 					"error" => true,
 					"message" => "Pseudonyme déjà pris."
 				);
-				$view = new HomeView(__TEMPLATES_DIR__.'landing.php', array(
+				$view = new LandingView(__TEMPLATES_DIR__.'landing.php', array(
 					'login_data' => false,
 					'signup_data' => $result
 				));
@@ -144,17 +150,19 @@ function get_contacts(){
 }
 
 function find_by_nickname(){
-	$search_term = explode("/",$_SERVER['REQUEST_URI'])[4];//dernier param
+	$splitted_array = explode("/",$_SERVER['REQUEST_URI']);
+	$search_term = end($splitted_array);
 	header('HTTP/1.0 200');
     header('Content-Type: application/json');
     echo json_encode(User::find_by_nickname($search_term));
 }
 
 function add_contact(){
-	$id = end(explode("/",$_SERVER['REQUEST_URI']));
+	$splitted_array = explode("/",$_SERVER['REQUEST_URI']);
+	$id = end($splitted_array);
 	$user = User::get_by_id($_SESSION['userID']);
-	
+	$response = $user->add_contact($id);
 	header('HTTP/1.0 200');
     header('Content-Type: application/json');
-    echo json_encode(array('response'=>$user->add_contact($id)));
+    echo json_encode($response);
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 24 Mars 2014 à 05:48
+-- Généré le: Sam 29 Mars 2014 à 18:31
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -46,9 +46,15 @@ TRUNCATE TABLE `contact`;
 --
 
 INSERT INTO `contact` (`user_id_1`, `user_id_2`) VALUES
+(17, 1),
 (16, 8),
+(17, 8),
+(17, 9),
+(17, 14),
+(17, 15),
 (16, 17),
 (22, 17),
+(17, 19),
 (16, 22),
 (16, 29);
 
@@ -64,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `discussion` (
   `created_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Vider la table avant d'insérer `discussion`
@@ -80,7 +86,8 @@ INSERT INTO `discussion` (`id`, `created_datetime`, `title`) VALUES
 (12, '2014-03-24 04:43:23', 'RÃ©union BDE'),
 (13, '2014-03-24 04:50:48', 'PrÃ©paration soutenance'),
 (14, '2014-03-24 04:58:18', 'SoirÃ©e BDE'),
-(15, '2014-03-24 05:01:20', 'Concert samedi');
+(15, '2014-03-24 05:01:20', 'Concert samedi'),
+(16, '2014-03-24 08:47:15', 'Test');
 
 -- --------------------------------------------------------
 
@@ -109,7 +116,11 @@ INSERT INTO `discussion_message` (`discussion_id`, `message_id`) VALUES
 (13, 64),
 (13, 65),
 (14, 66),
-(15, 67);
+(15, 67),
+(13, 68),
+(13, 69),
+(16, 70),
+(14, 71);
 
 -- --------------------------------------------------------
 
@@ -127,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `message` (
   PRIMARY KEY (`id`),
   KEY `FK_MESSAGE_USER` (`user_id`),
   KEY `FK_MESSAGE_DISCUSSION` (`discussion_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=72 ;
 
 --
 -- Vider la table avant d'insérer `message`
@@ -142,7 +153,11 @@ INSERT INTO `message` (`id`, `content`, `created`, `discussion_id`, `user_id`) V
 (64, 'T''as bien le diapo en tÃªte pour demain ?', '2014-03-24 04:50:48', 13, 17),
 (65, 'Pas de soucis !', '2014-03-24 04:51:19', 13, 16),
 (66, 'PrÃªts Ã  faire la fÃªte ?', '2014-03-24 04:58:18', 14, 16),
-(67, 'Il y a Henri DÃ©s qui passe au BT, Ã§a vous dis ?', '2014-03-24 05:01:20', 15, 22);
+(67, 'Il y a Henri DÃ©s qui passe au BT, Ã§a vous dis ?', '2014-03-24 05:01:20', 15, 22),
+(68, 'On est prÃªt !', '2014-03-24 08:17:48', 13, 17),
+(69, 'La prÃ©sentation se passe bien !', '2014-03-24 08:46:07', 13, 17),
+(70, 'premier message', '2014-03-24 08:47:15', 16, 17),
+(71, 'Wep', '2014-03-29 16:29:41', 14, 17);
 
 -- --------------------------------------------------------
 
@@ -159,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `picture_path` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
 
 --
 -- Vider la table avant d'insérer `user`
@@ -196,7 +211,9 @@ INSERT INTO `user` (`id`, `created_datetime`, `email`, `nickname`, `password`, `
 (28, '2014-03-23', 'a@q.fr', 'Mathilde Marlier', 'toA7xpmJRmmtc', NULL),
 (29, '2014-03-23', 'z@q.fr', 'Alice Nicolas', 'toA7xpmJRmmtc', NULL),
 (30, '2014-03-23', 'ab@b.fr', 'Melissa Gourlin', 'toA7xpmJRmmtc', NULL),
-(31, '2014-03-24', 'aa@aa.fr', 'Bernard Bertrand', 'toA7xpmJRmmtc', NULL);
+(31, '2014-03-24', 'aa@aa.fr', 'Bernard Bertrand', 'toA7xpmJRmmtc', NULL),
+(32, '2014-03-29', 'aa@aa.fr', 'Friedrich Nietzsche', 'toA7xpmJRmmtc', NULL),
+(33, '2014-03-29', 'bb@bb.fr', 'Blaise Pascal', 'toA7xpmJRmmtc', NULL);
 
 -- --------------------------------------------------------
 
@@ -223,7 +240,8 @@ TRUNCATE TABLE `users_status`;
 --
 
 INSERT INTO `users_status` (`user_id`, `session_id`, `last_connection`, `status`) VALUES
-(31, NULL, '2014-03-24 05:31:19', 0);
+(31, NULL, '2014-03-24 05:31:19', 0),
+(33, 'tegl7kfi06mogfn3vrqu8ivuf1', '2014-03-29 18:20:52', 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +276,9 @@ INSERT INTO `user_discussion` (`user_id`, `discussion_id`) VALUES
 (29, 14),
 (16, 15),
 (17, 15),
-(22, 15);
+(22, 15),
+(16, 16),
+(17, 16);
 
 -- --------------------------------------------------------
 

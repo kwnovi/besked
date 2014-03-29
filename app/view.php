@@ -7,7 +7,7 @@
  * Licensed under The WTFPL License
  *
  * @license http://www.wtfpl.net/txt/copying/
- * @author Lucien Varaca <k.wnovi@gmail.com>
+ * @author Lucien Varacca <k.wnovi@gmail.com>
  * @author Quentin Le Bour <q.lebour@gmail.com>
  */
 
@@ -23,21 +23,26 @@ abstract class View{
 
 
 	// fonction générant la vue
-	public function render(){
+	public function render($redirection=null){
 		if($this->data !== null){
 			// passe les données contenues dans 'data' comme variables globale
 			// elles deviennent ainsi accessibles dans le fichier de template
 			extract($this->data);
 		}
-
+		if ($redirection != null) {
+			header("Location: "+$redirection,true,301);
+		}
 		// écriture directe dans le flux de sortie 
         ob_start();
         include ($this->header);
         include ($this->template);
         include ($this->footer);
         ob_end_flush();
+
 	}
 }
+
+// quick pattern pour avoir des header / footer différents 
 
 class LandingView extends View{
 	public function __construct($template = null, $data = null){
@@ -52,6 +57,15 @@ class HomeView extends View{
 	public function __construct($template = null, $data = null){
 		$this->header = __TEMPLATES_DIR__.'home_header.php';
 		$this->footer = __TEMPLATES_DIR__.'home_footer.php';	
+		$this->template = $template;
+		$this->data = $data;
+	}
+}
+
+class NotFoundView extends View{
+	public function __construct($template = null, $data = null){
+		$this->header = __TEMPLATES_DIR__.'landing_header.php';
+		$this->footer = __TEMPLATES_DIR__.'landing_footer.php';	
 		$this->template = $template;
 		$this->data = $data;
 	}

@@ -9,7 +9,7 @@
  * Licensed under The WTFPL License
  *
  * @license http://www.wtfpl.net/txt/copying/
- * @author Lucien Varaca <k.wnovi@gmail.com>
+ * @author Lucien Varacca <k.wnovi@gmail.com>
  * @author Quentin Le Bour <q.lebour@gmail.com>
  */
 

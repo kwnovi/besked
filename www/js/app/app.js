@@ -2,6 +2,8 @@
  *  GLOBAL SCOPE
  **********************************/
 
+var USER = new UserModel(init_user_data);
+
 /* COLLECTIONS */
 var contacts_collection = new UserCollection(init_contacts_data);
 contacts_collection.url = "user/contacts"; 
@@ -79,7 +81,6 @@ $(function(){
 			$(".corpus-view").hide();
 			$("#chat-view").show();
 			chat_view = new ChatView({model: discussions_collection.findWhere({id:discussion_id})});
-			// chat_view.render();
 		}
 	});
 
